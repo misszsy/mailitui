@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台登陆</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <title>麦力推官网后台管理</title>
     <link rel="stylesheet" href="static/css/element/element.css" th:href="@{/static/css/element/element.css}">
     <link rel="stylesheet" href="static/css/common/style/layout.css" th:href="@{/static/css/common/style/layout.css}">
     <link rel="stylesheet" href="static/css/icon/iconfont.css" th:href="@{/static/css/icon/iconfont.css}">
@@ -18,7 +17,7 @@
         -moz-border-radius: 5px;
         background-clip: padding-box;
         margin: 180px auto;
-        width: 350px;
+        width: 300px;
         padding: 35px 35px 15px 35px;
         background: #fff;
         border: 1px solid #eaeaea;
@@ -32,14 +31,16 @@
     .remember {
         margin: 0px 0px 35px 0px;
     }
-    .username {
-        background: url(../../static/img/user.png) no-repeat;
+    .gray-bg{
+        background-image: url(../../static/img/bg_login.png);
+        background-repeat: no-repeat;
+        background-size: cover
     }
 </style>
 <body class="gray-bg">
 <div id="app" class="app-container calendar-list-container" v-cloak>
     <el-form :model="entity" :rules="rules" ref="dataForm" label-position="left" label-width="0px" class="login-container">
-        <h3 class="title">系统登录</h3>
+        <h3 class="title">麦力推后台系统</h3>
         <el-form-item prop="username">
             <el-input type="text" v-model="entity.username"  auto-complete="off" placeholder="请输入账号">
                 <template slot="prepend" ><i class="sy-icon-user"></i></template>
