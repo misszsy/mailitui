@@ -1,12 +1,12 @@
-package com.mall.plus.web.controller.${table.entityPath};
+package com.zhou.web.controller.${table.entityPath};
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mall.plus.common.resp.R;
-import com.mall.plus.common.annotation.Log;
+import com.zhou.framework.resp.R;
+import com.zhou.framework.annotation.Log;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
-import com.mall.plus.busi.entity.${table.entityName};
-import com.mall.plus.busi.service.${table.serviceName};
+import com.zhou.busi.entity.${table.entityName};
+import com.zhou.busi.service.${table.serviceName};
 
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;

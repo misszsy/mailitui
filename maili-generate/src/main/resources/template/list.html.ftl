@@ -100,8 +100,8 @@
         },
         methods: {
             getList() {
-                this.listLoading = true
-                var _this = this;
+                const _this = this;
+                _this.listLoading = true
                 $.ajax({
                     method: 'GET',
                     url: 'listData',
