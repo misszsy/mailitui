@@ -12,6 +12,7 @@
         <module>maili-busi</module>
         <module>maili-framework</module>
         <module>maili-web</module>
+        <module>maili-generate</module>
     </modules>
 
     <build>
