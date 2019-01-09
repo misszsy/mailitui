@@ -1,14 +1,20 @@
 package com.zhou.framework.resp;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 
+@ApiModel(value = "R类",description = "返回说明")
 public class R<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "状态码")
 	private Integer code;
 
+	@ApiModelProperty(value = "描述信息")
 	private String message;
 
 	private T data;

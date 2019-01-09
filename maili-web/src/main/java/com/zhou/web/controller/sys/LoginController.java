@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 2017-07-27
  */
 @Controller
+@ApiIgnore
 @Api(value = "LoginController",description = "系统登录相关api")
 public class LoginController {
 

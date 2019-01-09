@@ -2,10 +2,12 @@ package com.zhou.busi.entity;
 
 import java.time.LocalDateTime;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhou.busi.common.entity.BaseModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -15,40 +17,65 @@ import com.zhou.busi.common.entity.BaseModel;
  * @author zhoushengyuan
  * @since 2018-12-24
  */
-@TableName("news")
-public class News extends BaseModel {
+@TableName("article")
+@ApiModel(value = "Article类",description = "文章资讯类")
+public class Article extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 栏目id
      */
+    @ApiModelProperty(name = "columnId",value = "栏目id")
     private String columnId;
 
     /**
-     * 新闻标题
+     * 文章类型
      */
+    @ApiModelProperty(name = "typeId",value = "文章类型")
+    private String typeId;
+
+    /**
+     * 文章标题
+     */
+    @ApiModelProperty(name = "title",value = "文章标题")
     private String title;
+
+    /**
+     * 文章图片
+     */
+    @ApiModelProperty(name = "picture",value = "文章图片")
+    private String picture;
 
     /**
      * 关键字
      */
+    @ApiModelProperty(name = "keyword",value = "关键字")
     private String keyword;
 
     /**
      * 描述说明
      */
+    @ApiModelProperty(name = "description",value = "描述说明")
     private String description;
 
     /**
-     * 资讯来源
+     * 文章来源
      */
+    @ApiModelProperty(name = "source",value = "文章来源")
     private String source;
 
     /**
-     * 资讯状态(0:未发布,1:已发布,2:已取消)
+     * 文章状态(0:未发布,1:已发布,2:已取消)
      */
+    @ApiModelProperty(name = "status",value = "文章状态(0:未发布,1:已发布,2:已取消)")
     private String status;
+
+    /**
+     * 是否推荐(0:否,1:是)
+     */
+    @ApiModelProperty(name = "recommend",value = "是否推荐(0:否,1:是)")
+    private String recommend;
 
     /**
      * 创建人
@@ -58,6 +85,7 @@ public class News extends BaseModel {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
 
     /**
@@ -68,11 +96,14 @@ public class News extends BaseModel {
     /**
      * 发布时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(name = "publishDate",value = "发布时间")
     private LocalDateTime publishDate;
 
     /**
-     * 资讯内容
+     * 文章内容
      */
+    @ApiModelProperty(name = "content",value = "文章内容")
     private String content;
 
     /**
@@ -169,11 +200,37 @@ public class News extends BaseModel {
         this.disabled = disabled;
     }
 
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
+    }
+
     @Override
     public String toString() {
-        return "News{" +
+        return "Article{" +
         "columnId=" + columnId +
+        ", typeId=" + typeId +
         ", title=" + title +
+        ", picture=" + picture +
         ", keyword=" + keyword +
         ", description=" + description +
         ", source=" + source +

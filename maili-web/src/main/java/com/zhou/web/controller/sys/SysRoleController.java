@@ -17,6 +17,7 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/sys/role")
+@ApiIgnore
 @Api(value = "SysRoleController",description = "系统角色相关api")
 public class SysRoleController extends BaseController<SysRoleService, SysRole> {
 

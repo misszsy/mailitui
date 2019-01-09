@@ -3,6 +3,8 @@ package com.zhou.busi.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.busi.entity.SysDict;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,6 @@ import com.zhou.busi.entity.SysDict;
  */
 public interface SysDictService extends IService<SysDict> {
 
+
+    List<SysDict> groupingByList(String type);
 }

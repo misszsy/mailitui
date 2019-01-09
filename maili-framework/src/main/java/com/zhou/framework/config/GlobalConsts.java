@@ -6,23 +6,18 @@ package com.zhou.framework.config;
  */
 public class GlobalConsts {
 
+    public static final String CANCEL = "2";
     public static final String TURE = "1";
     public static final String FALSE = "0";
 
-    public static final int PAGE_SIZE = 20;
-
-    public static final String CACHE_SPECIES_MAP = "speciesMap";
-
-    public static final String CACHE_COLUMN_MAP = "columnMap";
-
     public static final String CACHE_DICT_MAP = "dictMap";
 
-    public static final String HTTP_LOTTERY_URL="http://api.caipiaokong.cn/lottery/";
+    public static final String CACHE_COLUMN_MAP = "columnMap";
 
     /**
      * 项目上传文件路径总路口
      */
-    public static final String PROJECT_FILE_ROOT_PATH ="D://usr/files";
+    public static final String PROJECT_FILE_ROOT_PATH ="/usr/maili";
 
     /**
      * 上传图片基础虚拟路径

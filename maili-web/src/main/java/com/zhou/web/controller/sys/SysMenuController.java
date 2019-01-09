@@ -14,6 +14,7 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/sys/menu")
+@ApiIgnore
 @Api(value = "SysMenuController",description = "系统菜单相关api")
 public class SysMenuController extends BaseController<SysMenuService, SysMenu> {
 

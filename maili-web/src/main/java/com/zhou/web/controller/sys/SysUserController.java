@@ -29,6 +29,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @Controller
 @RequestMapping("/sys/user")
+@ApiIgnore
 @Api(value = "SysUserController",description = "系统用户相关api")
 public class SysUserController extends BaseController<SysUserService, SysUser> {
 

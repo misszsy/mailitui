@@ -4,7 +4,7 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <!-- 定义日志文件 输入位置 -->
-    <property name="log_dir" value="D://logs/maili-web"/>
+    <property name="log_dir" value="/usr/local/tomcat/logs/maili-web"/>
     <!--
         <property name="log_dir" value="/opt/Log/prom_prize" />
      -->

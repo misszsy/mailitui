@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.zhou.framework.config.ConfigConsts;
 import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
+import com.zhou.framework.ueditor.ActionEnter;
 import com.zhou.framework.utils.FileUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.Map;
 
 /**
@@ -46,7 +48,7 @@ public class UnifiedUploadController {
      * 百度编辑器上传文件
      * @return
      */
-    @PostMapping(value = "editorUpload")
+    @RequestMapping(value = "editorUpload")
     @ApiOperation(value = "编辑器文件上传",notes = "百度编辑器文件上传",httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "upfile", value = "上传的文件名称",required = true, dataType = "MultipartFile"),
@@ -56,11 +58,11 @@ public class UnifiedUploadController {
         String rootPath = request.getSession().getServletContext().getRealPath("/");
        try {
             if("config".equals(action)){    //如果是初始化
-              /*  String exec = new ActionEnter(request, rootPath).exec();
+                String exec = new ActionEnter(request, rootPath).exec();
                 PrintWriter writer = response.getWriter();
                 writer.write(exec);
                 writer.flush();
-                writer.close();*/
+                writer.close();
             }else if("uploadimage".equals(action)  || "uploadfile".equals(action)){    //如果是上传图片、和其他文件
                 String filePath= FileUtils.uploadFile(file, GlobalConsts.IMG_BASE_EDITOR);
                 Map<String,Object> map= Maps.newHashMap();

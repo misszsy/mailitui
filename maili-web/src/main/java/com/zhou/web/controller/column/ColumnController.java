@@ -1,8 +1,12 @@
 package com.zhou.web.controller.column;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
 import com.zhou.framework.annotation.Log;
+import com.zhou.framework.utils.JedisUtils;
+import com.zhou.framework.utils.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import com.zhou.busi.entity.Column;
@@ -10,6 +14,11 @@ import com.zhou.busi.service.ColumnService;
 
 import org.springframework.stereotype.Controller;
 import com.zhou.busi.common.controller.BaseController;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +28,7 @@ import com.zhou.busi.common.controller.BaseController;
  * @author zhoushengyuan
  * @since 2018-12-24
  */
+@ApiIgnore
 @Controller
 @RequestMapping("/column")
 public class ColumnController extends BaseController<ColumnService,Column> {
@@ -91,13 +101,28 @@ public class ColumnController extends BaseController<ColumnService,Column> {
 
 
     /**
-    * 根据id获取
-    * @param id
-    * @return
-    */
+     * 根据id获取
+     * @param id
+     * @return
+     */
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:column:update")
     public @ResponseBody R get(@PathVariable  String id) {
         return super.get(id);
+    }
+
+
+    /**
+     * 根据ids获取
+     * @return
+     */
+    @GetMapping("getColumnList")
+    public @ResponseBody R getColumnList() {
+        Collection<Column> columnList= (List<Column>)JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
+        if(CollectionUtils.isEmpty(columnList)){
+            columnList=baseService.listByIds(Arrays.asList("3","4"));
+            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_MAP,columnList,0);
+        }
+        return R.ok(columnList);
     }
 }

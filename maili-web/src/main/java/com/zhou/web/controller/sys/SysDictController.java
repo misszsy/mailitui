@@ -5,7 +5,9 @@ import com.zhou.busi.common.controller.BaseController;
 import com.zhou.busi.entity.SysDict;
 import com.zhou.busi.service.SysDictService;
 import com.zhou.framework.annotation.Log;
+import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
+import com.zhou.framework.utils.JedisUtils;
 import com.zhou.framework.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,6 +17,7 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/sys/dict")
+@ApiIgnore
 @Api(value = "SysDictController",description = "系统字典相关api")
 public class SysDictController extends BaseController<SysDictService, SysDict> {
 
@@ -76,6 +80,7 @@ public class SysDictController extends BaseController<SysDictService, SysDict> {
     @RequiresPermissions("sys:dict:save")
     public @ResponseBody R save(SysDict sysDict) {
         beanValidator(sysDict);
+        JedisUtils.del(GlobalConsts.CACHE_DICT_MAP);
         return super.save(sysDict);
     }
 
@@ -88,6 +93,7 @@ public class SysDictController extends BaseController<SysDictService, SysDict> {
     @RequiresPermissions("sys:dict:update")
     public @ResponseBody R update(SysDict sysDict) {
         beanValidator(sysDict);
+        JedisUtils.del(GlobalConsts.CACHE_DICT_MAP);
         return super.update(sysDict);
     }
 
@@ -127,4 +133,18 @@ public class SysDictController extends BaseController<SysDictService, SysDict> {
     public @ResponseBody R checkPermission() {
         return R.ok();
     }
+
+
+    /**
+     * 根据字典类型获取字典
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"getDictList"})
+    @ApiOperation(value = "获取字典",notes = "根据字典类型获取字典信息",httpMethod = "GET")
+    @ApiImplicitParam(name = "type", value = "字典类型",required = true, dataType = "String")
+    public R getDictList(String type) {
+        return R.ok(baseService.groupingByList(type));
+    }
+
 }

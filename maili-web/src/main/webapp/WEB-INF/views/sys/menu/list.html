@@ -209,16 +209,16 @@
         let tmp = []
         Array.from(data).forEach(function(record) {
             if (record._expanded === undefined) {
-                Vue.set(record, '_expanded', expandAll)
+                this.Vue.set(record, '_expanded', expandAll)
             }
             let _level = 1
             if (level !== undefined && level !== null) {
                 _level = level + 1
             }
-            Vue.set(record, '_level', _level)
+                this.Vue.set(record, '_level', _level)
             // 如果有父元素
             if (parent) {
-                Vue.set(record, 'parent', parent)
+                this.Vue.set(record, 'parent', parent)
             }
             tmp.push(record)
             if (record.children && record.children.length > 0 && record._expanded) {
@@ -265,10 +265,10 @@
                           {type:'0',name:'el-icon-caret-right'},
                           {type:'0',name:'el-icon-goods'},
                           {type:'0',name:'el-icon-sold-out'},
-                          {type:'0',name:'el-icon-news'},
+                          {type:'0',name:'el-icon-time'},
                           {type:'0',name:'el-icon-message'},
                           {type:'0',name:'el-icon-date'},
-                          {type:'0',name:'el-icon-view\n'},
+                          {type:'0',name:'el-icon-view'},
                           {type:'0',name:'el-icon-picture'},
                           {type:'0',name:'el-icon-picture-outline'},
                           {type:'0',name:'el-icon-delete'},
@@ -339,20 +339,21 @@
             },
 
             typeChange(val){
+                const _this=this;
                 if(val=='1'){
-                    this.isHref=true;
-                    this.isPermission=false;
+                    _this.isHref=true;
+                    _this.isPermission=false;
                 }else if(val=='2'){
-                    this.isHref=false;
-                    this.isPermission=true;
+                    _this.isHref=false;
+                    _this.isPermission=true;
                 }else{
-                    this.isHref=false;
-                    this.isPermission=false;
+                    _this.isHref=false;
+                    _this.isPermission=false;
                 }
             },
             getList() {
-                this.listLoading = true
-                var _this = this;
+                const _this = this;
+                _this.listLoading = true
                 $.ajax({
                     method: 'GET',
                     url: 'getAuthMenuTree',
@@ -385,40 +386,42 @@
                 }
             },
             handleCreate() {//点击新增
-                this.resetentity()
-                this.dialogStatus = 'create'
-                this.dialogFormVisible = true
-                this.$nextTick(() => {
-                    this.$refs['dataForm'].clearValidate()
+                const _this=this;
+                _this.resetentity()
+                _this.dialogStatus = 'create'
+                _this.dialogFormVisible = true
+                _this.$nextTick(() => {
+                    _this.$refs['dataForm'].clearValidate()
                 })
             },
             handleAddChild(row){
-                this.resetentity()
-                this.dialogStatus = 'create'
-                this.dialogFormVisible = true
-
-                this.entity.parentId = row.id;
-                this.entity.parentName = row.name;
-                this.$nextTick(() => {
-                    this.typeChange(this.entity.type);
-                    this.$refs['dataForm'].clearValidate()
+                const _this=this;
+                _this.resetentity()
+                _this.dialogStatus = 'create'
+                _this.dialogFormVisible = true
+                _this.entity.parentId = row.id;
+                _this.entity.parentName = row.name;
+                _this.$nextTick(() => {
+                    _this.typeChange(_this.entity.type);
+                    _this.$refs['dataForm'].clearValidate()
                 })
             },
             handleUpdate(row) {//点击修改
-                this.entity = Object.assign({}, row) // copy obj
-                this.dialogStatus = 'update'
-                this.dialogFormVisible = true
+                const _this=this;
+                _this.entity = Object.assign({}, row) // copy obj
+                _this.dialogStatus = 'update'
+                _this.dialogFormVisible = true
 
-                this.entity.parentId = row.parent.id;
-                this.entity.parentName = row.parent.name;
-                this.$nextTick(() => {
-                    this.typeChange(this.entity.type);
-                    this.$refs['dataForm'].clearValidate()
+                _this.entity.parentId = row.parent.id;
+                _this.entity.parentName = row.parent.name;
+                _this.$nextTick(() => {
+                    _this.typeChange(_this.entity.type);
+                    _this.$refs['dataForm'].clearValidate()
                 })
             },
             handleDelete(row) {//点击删除
                 const _this = this;
-                this.$confirm('确认提交吗？', '提示', {}).then(() => {
+                _this.$confirm('确认提交吗？', '提示', {}).then(() => {
                     $.ajax({
                         method: 'POST',
                         url: 'remove/'+row.id,
@@ -508,7 +511,7 @@
                 })
             },
             getTree() {
-                var _this = this
+                const _this = this
                 _this.dialogTreeVisible = true
                 $.ajax({
                     method: 'GET',
@@ -518,7 +521,7 @@
                             _this.dataTree = data.data;
                             _this.listTree = treeToArray(_this.dataTree, _this.expandAll);
                             _this.$nextTick(() => {
-                                var row=_this.listTree.filter(item=>item.id===_this.entity.parentId);
+                                const row=_this.listTree.filter(item=>item.id===_this.entity.parentId);
                                 _this.$refs['singleTable'].setCurrentRow(row[0]);
                             })
                         }else{
@@ -528,14 +531,15 @@
                 });
             },
             getIcon() {
-                var _this = this
+                const _this = this
                 _this.iconName=_this.entity.icon;
                 _this.dialogIconVisible = true
             },
             selectNode(row){
-                this.dialogTreeVisible = false;
-                this.entity.parentId = row.id;
-                this.entity.parentName = row.name;
+                const _this = this
+                _this.dialogTreeVisible = false;
+                _this.entity.parentId = row.id;
+                _this.entity.parentName = row.name;
                 // this.entity.parentId = ;
             },
             showRow: function(row) {
@@ -562,8 +566,8 @@
                 return (index === 0 && record.children && record.children.length > 0)
             },
             iconClick(e){
-                var _this = this
-                var icon= e.currentTarget.firstElementChild.innerText;
+                const _this = this
+                const icon= e.currentTarget.firstElementChild.innerText;
                 _this.dialogIconVisible = false;
                 _this.entity.icon=icon;
             }

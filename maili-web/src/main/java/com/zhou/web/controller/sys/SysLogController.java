@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/sys/log")
+@ApiIgnore
 @Api(value = "SysLogController",description = "系统日志相关api")
 public class SysLogController extends BaseController<SysLogService, SysLog> {
 
