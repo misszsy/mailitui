@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>maili-busi</artifactId>
     <packaging>jar</packaging>
-    <name>maili-busi</name>
 
     <dependencies>
         <dependency>
