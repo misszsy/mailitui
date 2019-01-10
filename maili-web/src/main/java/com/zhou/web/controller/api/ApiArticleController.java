@@ -3,7 +3,6 @@ package com.zhou.web.controller.api;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zhou.busi.common.entity.BaseModel;
 import com.zhou.busi.entity.Article;
 import com.zhou.busi.service.ArticleService;
 import com.zhou.framework.config.GlobalConsts;
