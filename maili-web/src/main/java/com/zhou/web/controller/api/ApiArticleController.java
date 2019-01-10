@@ -24,6 +24,7 @@ import java.util.Map;
  * @author zhoushengyuan
  * @since 2018-12-24
  */
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1")
 @Api(value = "ApiArticleController",description = "文章相关api")

@@ -2,6 +2,8 @@ package com.zhou.busi.entity;
 
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhou.busi.common.entity.BaseModel;
@@ -22,6 +24,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Article extends BaseModel {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
+    private String id;
 
     /**
      * 栏目id
@@ -222,6 +227,16 @@ public class Article extends BaseModel {
 
     public void setRecommend(String recommend) {
         this.recommend = recommend;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

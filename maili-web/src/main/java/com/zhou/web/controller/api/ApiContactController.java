@@ -1,14 +1,10 @@
 package com.zhou.web.controller.api;
 
-import com.zhou.busi.entity.Article;
 import com.zhou.busi.entity.Contact;
 import com.zhou.busi.service.ContactService;
-import com.zhou.framework.annotation.Log;
 import com.zhou.framework.resp.R;
 import io.swagger.annotations.*;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +18,7 @@ import java.time.LocalDateTime;
  * @author zhoushengyuan
  * @since 2018-12-24
  */
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/contact")
 @Api(value = "ApiContactController",description = "预约管理api")
