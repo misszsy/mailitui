@@ -8,11 +8,14 @@ import com.zhou.busi.entity.Article;
 import com.zhou.busi.service.ArticleService;
 import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
+import com.zhou.framework.utils.StringUtils;
 import io.swagger.annotations.*;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -121,10 +124,10 @@ public class ApiArticleController{
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParam(name = "id", value = "文章id",required = true, paramType = "query", dataType = "String")
     public R get(@PathVariable String id){
-        Map<String,Object> articleMap= articleService.getMap(new QueryWrapper<Article>().lambda().eq(BaseModel::getId,id));
+        Map<String,Object> articleMap= articleService.getMap(new QueryWrapper<Article>().setEntity(new Article(id)));
         if(MapUtils.isNotEmpty(articleMap)){
             String articleId=MapUtils.getString(articleMap,"id");
-            String typeId=MapUtils.getString(articleMap,"type_id");
+            String typeId=MapUtils.getString(articleMap,"typeId");
             articleMap.put("previous",articleService.selectPrevious(articleId,typeId));
             articleMap.put("next",articleService.selectNext(articleId,typeId));
         }
@@ -157,20 +160,17 @@ public class ApiArticleController{
      * 获取相关内容的文章列表
      * @return
      */
-    @PostMapping(value = "article/relationList")
+    @GetMapping(value = "article/relationList")
     @ApiOperation(value = "相关内容",notes = "获取相关内容的文章列表",response = Article.class,httpMethod = "GET")
     @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParam(name = "keyword", value = "关键字Keyword",required = true, paramType = "query", dataType = "String")
     public R relationList(String keyword){
-        String[] keywords=keyword.split(",");
-        List<Article> relationList=articleService.list(new QueryWrapper<Article>().lambda()
-                .eq(Article::getDisabled,"0")
-                .eq(Article::getStatus,"1")
-                .eq(Article::getColumnId,"3")
-                .like(Article::getKeyword,keyword)
-                .orderByDesc(Article::getPublishDate)
-                .last("limit 5"));
+        List<Article> relationList=new ArrayList<>();
+        if(StringUtils.isNotEmpty(keyword)){
+            String[] keywords=keyword.split(",");
+            relationList=articleService.selectLikeMaps(Arrays.asList(keywords));
+        }
         return R.ok(relationList);
     }
 }

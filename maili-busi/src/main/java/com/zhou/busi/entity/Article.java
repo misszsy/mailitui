@@ -117,6 +117,14 @@ public class Article extends BaseModel {
     @TableLogic
     private String disabled;
 
+    public Article() {
+        super();
+    }
+
+    public Article(String id) {
+        this.id = id;
+    }
+
     public String getColumnId() {
         return columnId;
     }

@@ -29,4 +29,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
     String selectPrevious(@Param("id") String id,@Param("typeId") String typeId);
 
     String selectNext(@Param("id") String id,@Param("typeId") String typeId);
+
+
+    Map<String,Object> getArticleMap(@Param("id") String id);
+
+
+    List<Article> selectLikeMaps(@Param("keywords") List<String> keywords);
 }

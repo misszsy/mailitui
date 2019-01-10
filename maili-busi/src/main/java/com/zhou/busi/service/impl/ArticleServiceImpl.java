@@ -70,4 +70,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         String articleId=baseMapper.selectNext(id,typeId);
         return StringUtils.isNotBlank(articleId)?articleId:"0";
     }
+
+
+    @Override
+    public Map<String, Object> getMap(Wrapper<Article> queryWrapper) {
+        return baseMapper.getArticleMap(queryWrapper.getEntity().getId());
+    }
+
+
+    @Override
+    public List<Article> selectLikeMaps(List<String> keywords) {
+        return baseMapper.selectLikeMaps(keywords);
+    }
 }
