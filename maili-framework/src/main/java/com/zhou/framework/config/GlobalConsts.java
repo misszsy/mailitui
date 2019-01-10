@@ -10,9 +10,9 @@ public class GlobalConsts {
     public static final String TURE = "1";
     public static final String FALSE = "0";
 
-    public static final String CACHE_DICT_MAP = "dictMap";
+    public static final String CACHE_DICT_MAP = "M_dictMap";
 
-    public static final String CACHE_COLUMN_MAP = "columnMap";
+    public static final String CACHE_COLUMN_MAP = "M_columnMap";
 
     /**
      * 项目上传文件路径总路口
