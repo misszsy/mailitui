@@ -22,17 +22,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     IPage<Map<String,Object>> selectPageMaps(IPage page,@Param("article") Article article);
 
-
     List<Article> getArticleIndexList();
 
-
-    String selectPrevious(@Param("id") String id,@Param("typeId") String typeId);
-
-    String selectNext(@Param("id") String id,@Param("typeId") String typeId);
-
-
     Map<String,Object> getArticleMap(@Param("id") String id);
-
 
     List<Article> selectLikeMaps(@Param("keywords") List<String> keywords);
 }

@@ -81,25 +81,6 @@
             ORDER BY a.`publish_date`  DESC LIMIT 5 )
     </select>
 
-
-    <select id="selectPrevious" resultType="String">
-        SELECT
-            a.id as "id"
-        FROM article a
-        WHERE a.id &lt; #{id}
-        AND a.type_id=#{typeId}
-        ORDER BY id DESC LIMIT 1
-    </select>
-
-    <select id="selectNext" resultType="String">
-        SELECT
-        a.id as "id"
-        FROM article a
-        WHERE a.id &gt; #{id}
-        AND a.type_id=#{typeId}
-        ORDER BY id DESC LIMIT 1
-    </select>
-
     <select id="getArticleMap" resultMap="BaseResultMap">
          SELECT
             a.id,
@@ -112,7 +93,9 @@
             a.keyword,
             a.source,
             a.publish_date,
-            a.content
+            a.content,
+            (SELECT id AS "id" FROM article  WHERE id &lt; a.id  AND type_id=a.type_id ORDER BY id  LIMIT 1) AS "previous",
+            (SELECT id AS "id" FROM article  WHERE id &gt; a.id  AND type_id=a.type_id ORDER BY id  LIMIT 1) AS "next"
         FROM
             article a
         WHERE

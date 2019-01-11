@@ -46,38 +46,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return mapList;
     }
 
-
     /**
-     * 查询上一篇
-     * @param id
-     * @param typeId
+     * 根据id查询文章详情上下篇
+     * @param queryWrapper
      * @return
      */
-    @Override
-    public String selectPrevious(String id, String typeId) {
-        String articleId=baseMapper.selectPrevious(id,typeId);
-        return StringUtils.isNotBlank(articleId)?articleId:"0";
-    }
-
-    /**
-     * 查询下一篇
-     * @param id
-     * @param typeId
-     * @return
-     */
-    @Override
-    public String selectNext(String id, String typeId) {
-        String articleId=baseMapper.selectNext(id,typeId);
-        return StringUtils.isNotBlank(articleId)?articleId:"0";
-    }
-
-
     @Override
     public Map<String, Object> getMap(Wrapper<Article> queryWrapper) {
         return baseMapper.getArticleMap(queryWrapper.getEntity().getId());
     }
 
-
+    /**
+     * 多个关键字模糊查询
+     * @param keywords
+     * @return
+     */
     @Override
     public List<Article> selectLikeMaps(List<String> keywords) {
         return baseMapper.selectLikeMaps(keywords);

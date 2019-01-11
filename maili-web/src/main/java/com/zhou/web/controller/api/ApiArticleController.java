@@ -124,11 +124,11 @@ public class ApiArticleController{
     @ApiImplicitParam(name = "id", value = "文章id",required = true, paramType = "query", dataType = "String")
     public R get(@PathVariable String id){
         Map<String,Object> articleMap= articleService.getMap(new QueryWrapper<Article>().setEntity(new Article(id)));
-        if(MapUtils.isNotEmpty(articleMap)){
-            String articleId=MapUtils.getString(articleMap,"id");
-            String typeId=MapUtils.getString(articleMap,"typeId");
-            articleMap.put("previous",articleService.selectPrevious(articleId,typeId));
-            articleMap.put("next",articleService.selectNext(articleId,typeId));
+        if(MapUtils.getLong(articleMap,"previous")==null){
+            articleMap.put("previous",0);
+        }
+        if(MapUtils.getLong(articleMap,"next")==null){
+            articleMap.put("next",0);
         }
         return R.ok(articleMap);
     }

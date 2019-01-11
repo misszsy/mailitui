@@ -19,9 +19,5 @@ public interface ArticleService extends IService<Article> {
 
     Map<String,List<Article>> getArticleIndexMap();
 
-    String selectPrevious(@Param("id") String id, @Param("typeId") String typeId);
-
-    String selectNext(@Param("id") String id,@Param("typeId") String typeId);
-
     List<Article> selectLikeMaps(@Param("keywords") List<String> keywords);
 }
