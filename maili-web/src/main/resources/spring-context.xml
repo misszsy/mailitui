@@ -26,7 +26,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations">
             <array>
-                <value>classpath*:/mappings/**/*.xml</value>
+                <value>classpath*:/mappings/sys/SysMenuMapper.xml</value>
             </array>
         </property>
 
@@ -98,7 +98,7 @@
 
     <!-- 缓存配置 -->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:${ehcache.configFile}" />
+        <property name="configLocation" value="classpath:cache/ehcache-local.xml" />
     </bean>
 
     <!-- 数据源 -->
