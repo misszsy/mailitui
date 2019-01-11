@@ -159,7 +159,7 @@ public class ApiArticleController{
      * 获取相关内容的文章列表
      * @return
      */
-    @GetMapping(value = "article/relationList")
+    @PostMapping(value = "article/relationList")
     @ApiOperation(value = "相关内容",notes = "获取相关内容的文章列表",response = Article.class,httpMethod = "GET")
     @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
