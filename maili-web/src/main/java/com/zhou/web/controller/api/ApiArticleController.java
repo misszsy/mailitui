@@ -181,7 +181,7 @@ public class ApiArticleController{
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"article/getDictList"})
+    @GetMapping(value = {"article/getDictList"})
     @ApiOperation(value = "获取栏目",notes = "根据栏目id获取栏目信息",httpMethod = "GET")
     @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, dataType = "String")
     public R getDictList(String columnId) {
