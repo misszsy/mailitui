@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhou.busi.entity.Article;
 import com.zhou.busi.service.ArticleService;
+import com.zhou.busi.service.SysDictService;
 import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
 import com.zhou.framework.utils.StringUtils;
@@ -35,7 +36,8 @@ public class ApiArticleController{
 
     @Autowired
     private ArticleService articleService;
-
+    @Autowired
+    private SysDictService sysDictService;
 
     /**
      * 根据文章类型获取新闻列表
@@ -171,5 +173,19 @@ public class ApiArticleController{
             relationList=articleService.selectLikeMaps(Arrays.asList(keywords));
         }
         return R.ok(relationList);
+    }
+
+
+    /**
+     * 根据字典类型获取字典
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"article/getDictList"})
+    @ApiOperation(value = "获取栏目",notes = "根据栏目id获取栏目信息",httpMethod = "GET")
+    @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, dataType = "String")
+    public R getDictList(String columnId) {
+        String type=StringUtils.equals(columnId,"3")?"news_type":"case_type";
+        return R.ok(sysDictService.groupingByList(type));
     }
 }
