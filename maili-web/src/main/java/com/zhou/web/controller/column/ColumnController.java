@@ -91,6 +91,7 @@ public class ColumnController extends BaseController<ColumnService,Column> {
     @PostMapping("update")
     @RequiresPermissions("sys:column:update")
     public @ResponseBody R update(Column column) {
+        JedisUtils.del(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP);
         beanValidator(column);
         return super.update(column);
     }
