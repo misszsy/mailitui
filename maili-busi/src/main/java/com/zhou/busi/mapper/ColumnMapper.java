@@ -18,4 +18,7 @@ public interface ColumnMapper extends BaseMapper<Column> {
 
 
     List<Map<String,Object>> selectColumnMaps();
+
+
+    List<Column> selectChildrenList();
 }

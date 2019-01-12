@@ -1,7 +1,6 @@
 package com.zhou.busi.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhou.busi.entity.Column;
 import com.zhou.busi.mapper.ColumnMapper;
 import com.zhou.busi.service.ColumnService;
@@ -37,6 +36,8 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
     }
 
 
+
+
     @Override
     public List<Map<String, Object>> listMaps(Wrapper<Column> queryWrapper) {
         return baseMapper.selectColumnMaps();
@@ -51,9 +52,7 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
     public List<Column> groupingByList(String columnId) {
         Map<String, List<Column>> columnMap = (Map<String, List<Column>>) JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP);
         if(MapUtils.isEmpty(columnMap)){
-            List<Column> columnList= super.list(new QueryWrapper<Column>().lambda().
-                                                in(Column::getParentId,"3","4").
-                                                orderByDesc(Column::getSort));
+            List<Column> columnList= baseMapper.selectChildrenList();
 
             columnMap=columnList.stream().collect(Collectors.groupingBy(Column::getParentId));
 
@@ -65,6 +64,7 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
         }
         return columnList;
     }
+
 
 
 
