@@ -20,7 +20,7 @@
     </sql>
 
 
-    <select id="selectChildrenList" resultMap="Column">
+    <select id="selectChildrenList" resultType="Column">
          SELECT
             a.id as "id",
             a.name as "name",
