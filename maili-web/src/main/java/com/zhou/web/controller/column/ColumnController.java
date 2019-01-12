@@ -91,9 +91,6 @@ public class ColumnController extends BaseController<ColumnService,Column> {
     @PostMapping("update")
     @RequiresPermissions("sys:column:update")
     public @ResponseBody R update(Column column) {
-
-        JedisUtils.del(GlobalConsts.CACHE_COLUMN_MAP);
-
         beanValidator(column);
         return super.update(column);
     }
@@ -129,6 +126,7 @@ public class ColumnController extends BaseController<ColumnService,Column> {
      */
     @GetMapping("getColumnList")
     public @ResponseBody R getColumnList() {
+        JedisUtils.del(GlobalConsts.CACHE_COLUMN_MAP);
         List<Map<String,Object>> columnList= (List<Map<String,Object>>)JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
         if(CollectionUtils.isEmpty(columnList)){
             columnList=baseService.listMaps(new QueryWrapper<>());
