@@ -39,6 +39,12 @@ public class Column extends BaseModel {
      */
     private Integer sort;
 
+    /**
+     * 英文名称
+     */
+    @TableField(exist = false)
+    private String parentName;
+
     @TableField(exist = false)
     private List<Column> children;
 
@@ -82,12 +88,21 @@ public class Column extends BaseModel {
         this.enName = enName;
     }
 
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     @Override
     public String toString() {
         return "Column{" +
         "name=" + name +
         ", enName=" + enName +
         ", parentId=" + parentId +
+        ", parentName=" + parentName +
         ", sort=" + sort +
         "}";
     }
