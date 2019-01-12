@@ -42,10 +42,10 @@
                     <el-form-item   label="文章类型" prop="typeId" >
                         <el-select v-model="entity.typeId"  placeholder="请选择文章类型">
                             <el-option
-                                    v-for="item in dictList"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
+                                    v-for="item in children"
+                                    :key="item.enName"
+                                    :label="item.name"
+                                    :value="item.enName">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -136,7 +136,7 @@
                 dialogStatus: '',
                 actionUrl:'[[@{/upload/action}]]',
                 fileList:[],
-                dictList:[],
+                children:[],
                 columnList:[],
                 textMap: {
                     update: '编辑',
@@ -163,13 +163,13 @@
                 window.location.href='list';
             },
             columnChange(val){
-                let typeName='news_type';
-                if(val==4){
-                    typeName='case_type';
-                }else{
-                }
-               this.entity.typeId=''
-               this.getDictList(typeName);
+                const _this=this;
+                _this.entity.typeId=''
+                _this.columnList.forEach((e)=>{
+                    if(val===e.id){
+                        _this.children=e.children;
+                    }
+                })
             },
             getColumnList(){
                 const _this = this;
@@ -179,21 +179,6 @@
                     success: function (data) {
                         if(data.code==200){
                             _this.columnList=data.data;
-                        }else{
-                            window.dataErrorHandler(data)
-                        }
-                    }
-                });
-            },
-            getDictList(val) {
-                const _this = this;
-                $.ajax({
-                    method: 'GET',
-                    url: '[[@{/sys/dict/getDictList}]]',
-                    data:{type:val},
-                    success: function (data) {
-                        if(data.code==200){
-                            _this.dictList=data.data;
                         }else{
                             window.dataErrorHandler(data)
                         }

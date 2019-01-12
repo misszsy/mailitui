@@ -26,10 +26,10 @@
             </el-select>
             <el-select v-model="listQuery.typeId" filterable  clearable  placeholder="请选择文章类型">
                 <el-option
-                        v-for="item in dictList"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        v-for="item in children"
+                        :key="item.enName"
+                        :label="item.name"
+                        :value="item.enName">
                 </el-option>
             </el-select>
             <el-select v-model="listQuery.status" filterable  clearable  placeholder="请选择发布状态">
@@ -145,7 +145,7 @@
                 },
                 dialogFormVisible: false,
                 dialogStatus: '',
-                dictList:[],
+                children:[],
                 columnList:[],
                 multipleSelection: [],
                 statusList:[{value:0,label:"未发布"},{value:1,label:"已发布"},{value:2,label:"已取消"}],
@@ -206,29 +206,14 @@
                     }
                 });
             },
-            getDictList(val) {
-                const _this = this;
-                $.ajax({
-                    method: 'GET',
-                    url: '[[@{/sys/dict/getDictList}]]',
-                    data:{type:val},
-                    success: function (data) {
-                        if(data.code==200){
-                            _this.dictList=data.data;
-                        }else{
-                            window.dataErrorHandler(data)
-                        }
-                    }
-                });
-            },
             columnChange(val){
-                let typeName='news_type';
-                if(val==4){
-                    typeName='case_type';
-                }else{
-                }
-                this.entity.typeId=''
-                this.getDictList(typeName);
+                const _this=this;
+                _this.entity.typeId=''
+                _this.columnList.forEach((e)=>{
+                    if(val===e.id){
+                        _this.children=e.children;
+                    }
+                })
             },
             handleFilter() {
                 this.listQuery.pageNum = 1

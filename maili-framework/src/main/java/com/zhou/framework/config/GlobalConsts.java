@@ -14,6 +14,8 @@ public class GlobalConsts {
 
     public static final String CACHE_COLUMN_MAP = "M_columnMap";
 
+    public static final String CACHE_COLUMN_CHILDREN_MAP = "M_childrenMap";
+
     /**
      * 项目上传文件路径总路口
      */

@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhou.busi.entity.Article;
+import com.zhou.busi.entity.Column;
 import com.zhou.busi.service.ArticleService;
+import com.zhou.busi.service.ColumnService;
 import com.zhou.busi.service.SysDictService;
 import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
@@ -37,7 +39,7 @@ public class ApiArticleController{
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private SysDictService sysDictService;
+    private ColumnService columnService;
 
     /**
      * 根据文章类型获取新闻列表
@@ -185,7 +187,6 @@ public class ApiArticleController{
     @ApiOperation(value = "获取栏目",notes = "根据栏目id获取栏目信息",httpMethod = "GET")
     @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, dataType = "String")
     public R getDictList(String columnId) {
-        String type=StringUtils.equals(columnId,"3")?"news_type":"case_type";
-        return R.ok(sysDictService.groupingByList(type));
+        return R.ok(columnService.groupingByList(columnId));
     }
 }

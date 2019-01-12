@@ -1,10 +1,24 @@
 package com.zhou.busi.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhou.busi.entity.Column;
+import com.zhou.busi.entity.SysDict;
+import com.zhou.busi.entity.SysMenu;
 import com.zhou.busi.mapper.ColumnMapper;
 import com.zhou.busi.service.ColumnService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.framework.config.GlobalConsts;
+import com.zhou.framework.utils.JedisUtils;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -17,4 +31,80 @@ import org.springframework.stereotype.Service;
 @Service
 public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> implements ColumnService {
 
+
+    @Override
+    public List<Column> list(Wrapper<Column> queryWrapper) {
+        List<Column> columnList =super.list(queryWrapper);
+        return tree(columnList);
+    }
+
+
+    @Override
+    public List<Map<String, Object>> listMaps(Wrapper<Column> queryWrapper) {
+        return baseMapper.selectColumnMaps();
+    }
+
+
+    /**
+     * 栏目分组管理
+     * @return
+     */
+    @Override
+    public List<Column> groupingByList(String columnId) {
+        Map<String, List<Column>> columnMap = (Map<String, List<Column>>) JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP);
+        if(MapUtils.isEmpty(columnMap)){
+            List<Column> columnList= super.list(new QueryWrapper<Column>().lambda().
+                                                in(Column::getParentId,"3","4").
+                                                orderByDesc(Column::getSort));
+
+            columnMap=columnList.stream().collect(Collectors.groupingBy(Column::getParentId));
+
+            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP,columnMap,0);
+        }
+        List<Column> columnList = columnMap.get(columnId);
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(columnList)){
+            columnList =new ArrayList<>();
+        }
+        return columnList;
+    }
+
+
+
+    /**
+     * 构建树
+     */
+    private static List<Column> tree(List<Column> list){
+        Map<String, Column> map = new LinkedHashMap<>();
+        for (Column column : list){
+            map.put(column.getId(), column);
+        }
+
+        for (Column column : list){
+            String parentId = column.getParentId();
+
+            if(column.getParentId() == null || "0".equals(column.getParentId())){
+                continue;
+            }
+
+            Column parent = map.get(parentId);
+            List<Column> childrenList = parent.getChildren();
+
+            if(CollectionUtils.isEmpty(childrenList)){
+                childrenList = new ArrayList<>();
+                parent.setChildren(childrenList);
+            }
+
+            childrenList.add(column);
+        }
+
+        List<Column> firstLevel = new ArrayList<>();
+
+        for (Column column : list){
+            if(column.getParentId() == null || "0".equals(column.getParentId())){
+                firstLevel.add(column);
+            }
+        }
+
+        return firstLevel;
+    }
 }

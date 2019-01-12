@@ -1,7 +1,11 @@
 package com.zhou.busi.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhou.busi.common.entity.BaseModel;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +26,11 @@ public class Column extends BaseModel {
     private String name;
 
     /**
+     * 英文名称
+     */
+    private String enName;
+
+    /**
      * 父id
      */
     private String parentId;
@@ -30,6 +39,10 @@ public class Column extends BaseModel {
      * 排序
      */
     private Integer sort;
+
+    @TableField(exist = false)
+    private List<Column> children;
+
 
     public String getName() {
         return name;
@@ -53,10 +66,28 @@ public class Column extends BaseModel {
         this.sort = sort;
     }
 
+
+    public List<Column> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Column> children) {
+        this.children = children;
+    }
+
+    public String getEnName() {
+        return enName;
+    }
+
+    public void setEnName(String enName) {
+        this.enName = enName;
+    }
+
     @Override
     public String toString() {
         return "Column{" +
         "name=" + name +
+        ", enName=" + enName +
         ", parentId=" + parentId +
         ", sort=" + sort +
         "}";

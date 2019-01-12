@@ -1,24 +1,22 @@
 package com.zhou.web.controller.column;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zhou.framework.config.GlobalConsts;
-import com.zhou.framework.resp.R;
-import com.zhou.framework.annotation.Log;
-import com.zhou.framework.utils.JedisUtils;
-import com.zhou.framework.utils.StringUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.web.bind.annotation.*;
+import com.zhou.busi.common.controller.BaseController;
 import com.zhou.busi.entity.Column;
 import com.zhou.busi.service.ColumnService;
-
+import com.zhou.framework.annotation.Log;
+import com.zhou.framework.config.GlobalConsts;
+import com.zhou.framework.resp.R;
+import com.zhou.framework.utils.JedisUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
-import com.zhou.busi.common.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -48,6 +46,17 @@ public class ColumnController extends BaseController<ColumnService,Column> {
     public String listView() {
         return getViewPath() + "list";
     }
+
+
+    /**
+     * 获取菜单栏目
+     * @return
+     */
+    @GetMapping("getColumnTree")
+    public @ResponseBody R getAuthMenuTree() {
+        return R.ok(baseService.list(new QueryWrapper<Column>().lambda().orderByDesc(Column::getSort)));
+    }
+
 
     /**
     * 分页查询列表
@@ -83,6 +92,9 @@ public class ColumnController extends BaseController<ColumnService,Column> {
     @PostMapping("update")
     @RequiresPermissions("sys:column:update")
     public @ResponseBody R update(Column column) {
+
+        JedisUtils.del(GlobalConsts.CACHE_COLUMN_MAP);
+
         beanValidator(column);
         return super.update(column);
     }
@@ -118,9 +130,9 @@ public class ColumnController extends BaseController<ColumnService,Column> {
      */
     @GetMapping("getColumnList")
     public @ResponseBody R getColumnList() {
-        Collection<Column> columnList= (List<Column>)JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
+        List<Map<String,Object>> columnList= (List<Map<String,Object>>)JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
         if(CollectionUtils.isEmpty(columnList)){
-            columnList=baseService.listByIds(Arrays.asList("3","4"));
+            columnList=baseService.listMaps(new QueryWrapper<>());
             JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_MAP,columnList,0);
         }
         return R.ok(columnList);

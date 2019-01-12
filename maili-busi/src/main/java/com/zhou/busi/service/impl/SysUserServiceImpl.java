@@ -38,7 +38,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @param id
      * @return
      */
-    @Transactional(readOnly = true)
     @Override
     public List<SysRole> getRoleByUserId(String id) {
         return this.baseMapper.getRoleByUserId(id);

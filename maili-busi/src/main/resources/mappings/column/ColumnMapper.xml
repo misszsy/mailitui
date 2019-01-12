@@ -3,11 +3,14 @@
 <mapper namespace="com.zhou.busi.mapper.ColumnMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zhou.busi.entity.Column">
+    <resultMap id="BaseResultMap" type="map">
     <result column="id" property="id" />
         <result column="name" property="name" />
+        <result column="en_name" property="enName" />
         <result column="parent_id" property="parentId" />
         <result column="sort" property="sort" />
+        <collection property="children"  column="id" ofType="map" javaType="java.util.List"
+                    select="getChildrenByParentId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,4 +19,32 @@
         name, parent_id, sort
     </sql>
 
+
+    <select id="selectColumnMaps" resultMap="BaseResultMap">
+         SELECT
+            a.id as "id",
+            a.name as "name",
+            a.en_name as "enName",
+            a.parent_id as "parentId",
+            a.sort as "sort"
+        FROM
+            sys_column a
+        WHERE
+             a.id in ('3','4')
+        ORDER BY a.sort DESC
+    </select>
+
+
+    <select id="getChildrenByParentId"  parameterType="string" resultType="map">
+        SELECT
+            a.id as "id",
+            a.name as "name",
+            a.en_name as "enName",
+            a.parent_id as "parentId",
+            a.sort as "sort"
+        FROM
+            sys_column a
+        WHERE a.parent_id=#{id}
+        ORDER BY a.sort DESC
+    </select>
 </mapper>
