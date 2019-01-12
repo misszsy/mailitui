@@ -1,6 +1,5 @@
 package com.zhou.busi.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhou.busi.common.entity.BaseModel;

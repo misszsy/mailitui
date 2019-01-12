@@ -3,8 +3,6 @@ package com.zhou.busi.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhou.busi.entity.Column;
-import com.zhou.busi.entity.SysDict;
-import com.zhou.busi.entity.SysMenu;
 import com.zhou.busi.mapper.ColumnMapper;
 import com.zhou.busi.service.ColumnService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
