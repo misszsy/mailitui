@@ -58,6 +58,9 @@
             <if test="article.columnId!=null and article.columnId!=''">
                 and a.column_id = #{article.columnId}
             </if>
+            <if test="article.keyword!=null and article.keyword!=''">
+                and  a.keyword like CONCAT('%',#{article.keyword},'%')
+            </if>
         ORDER BY a.publish_date DESC
     </select>
 

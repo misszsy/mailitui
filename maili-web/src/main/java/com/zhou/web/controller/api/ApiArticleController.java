@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhou.busi.entity.Article;
-import com.zhou.busi.entity.Column;
 import com.zhou.busi.service.ArticleService;
 import com.zhou.busi.service.ColumnService;
-import com.zhou.busi.service.SysDictService;
 import com.zhou.framework.config.GlobalConsts;
 import com.zhou.framework.resp.R;
 import com.zhou.framework.utils.StringUtils;
@@ -54,14 +52,16 @@ public class ApiArticleController{
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
             @ApiImplicitParam(name = "typeId", value = "文章类型",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataType = "int")
+            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
     })
-    public R getNewsList(@PathVariable String typeId,@PathVariable Integer pageNum,@PathVariable Integer pageSize){
+    public R getNewsList(@PathVariable String typeId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
         Article article=new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId("3");
         article.setTypeId(typeId);
+        article.setKeyword(keyword);
         IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
         return R.ok(page);
     }
@@ -79,13 +79,15 @@ public class ApiArticleController{
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
             @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataType = "int")
+            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
     })
-    public R list(@PathVariable String columnId,@PathVariable Integer pageNum,@PathVariable Integer pageSize){
+    public R list(@PathVariable String columnId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
         Article article=new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId(columnId);
+        article.setKeyword(keyword);
         IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
         return R.ok(page);
     }
@@ -103,13 +105,15 @@ public class ApiArticleController{
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
             @ApiImplicitParam(name = "typeId", value = "文章类型",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataType = "int")
+            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
     })
-    public R getCaseList(@PathVariable String typeId,@PathVariable Integer pageNum,@PathVariable Integer pageSize){
+    public R getCaseList(@PathVariable String typeId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
         Article article=new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId("4");
+        article.setKeyword(keyword);
         article.setTypeId(typeId);
         IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
         return R.ok(page);
