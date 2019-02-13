@@ -275,6 +275,7 @@ public class CryptoUtils {
         return encryptPassword;
     }
 
+
     /**
      * 验证密码
      * @param plainPassword 明文密码
@@ -321,5 +322,7 @@ public class CryptoUtils {
 
     private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5',
             '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+
 
 }

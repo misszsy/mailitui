@@ -3,7 +3,9 @@ package com.zhou.web.controller.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhou.busi.entity.Article;
+import com.zhou.busi.entity.Link;
 import com.zhou.busi.service.ArticleService;
+import com.zhou.busi.service.LinkService;
 import com.zhou.framework.resp.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +27,8 @@ public class IndexController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private LinkService linkService;
 
     /**
      * 获取公司新闻的公司新闻和新闻报道
@@ -56,5 +60,19 @@ public class IndexController {
                                 .orderByDesc(Article::getPublishDate)
                                 .last("limit 6"));
         return R.ok(articleList);
+    }
+
+
+    /**
+     * 获取友情链接列表
+     * @return
+     */
+    @GetMapping(value = "linkList")
+    @ApiOperation(value = "友情列表",notes = "获取友情链接列表",response = Link.class,responseContainer = "List",httpMethod = "GET")
+    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+            @ApiResponse(code = 400, message = "请求错误")})
+    public R getLinkList(){
+        List<Link> linkList=linkService.list(new QueryWrapper<Link>().lambda());
+        return R.ok(linkList);
     }
 }
