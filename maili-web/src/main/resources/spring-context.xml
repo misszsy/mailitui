@@ -63,8 +63,8 @@
                 <!-- 全局的主键策略 -->
                 <property name="idType" value="ID_WORKER_STR"/>
                 <!--逻辑删除全局配值-->
-               <property name="logicDeleteValue" value="1"/>
-               <property name="logicNotDeleteValue" value="0"/>
+                <property name="logicDeleteValue" value="1"/>
+                <property name="logicNotDeleteValue" value="0"/>
             </bean>
 
         </property>
@@ -73,14 +73,14 @@
 
     <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="com.zhou.busi.mapper"/>
     </bean>
 
 
     <!-- 定义事务 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
@@ -93,23 +93,23 @@
     <task:annotation-driven scheduler="scheduler" executor="executor" proxy-target-class="true"/>
 
     <!-- 配置 JSR303 Bean Validator 定义 -->
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
 
     <!-- 缓存配置 -->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:cache/ehcache-local.xml" />
+        <property name="configLocation" value="classpath:cache/ehcache-local.xml"/>
     </bean>
 
     <!-- 数据源 -->
     <!--see https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="driverClassName" value="${connection.driver}" />
+        <property name="driverClassName" value="${connection.driver}"/>
         <!-- 基本属性 url、auth、password -->
         <property name="url" value="${connection.url}"/>
         <property name="username" value="${connection.username}"/>
         <property name="password" value="${connection.password}"/>
-        <property name="dbType" value="${connection.dbType}" />
+        <property name="dbType" value="${connection.dbType}"/>
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="${druid.initialSize}"/>
@@ -119,17 +119,17 @@
         <!-- 配置获取连接等待超时的时间 -->
         <property name="maxWait" value="${druid.maxWait}"/>
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}"/>
 
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}"/>
 
-        <property name="validationQuery" value="${druid.validationQuery}" />
-        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
-        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
-        <property name="testOnReturn" value="${druid.testOnReturn}" />
+        <property name="validationQuery" value="${druid.validationQuery}"/>
+        <property name="testWhileIdle" value="${druid.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${druid.testOnBorrow}"/>
+        <property name="testOnReturn" value="${druid.testOnReturn}"/>
 
         <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="${druid.filters}" />
+        <property name="filters" value="${druid.filters}"/>
     </bean>
 </beans>

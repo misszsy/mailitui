@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @since 2018-12-24
  */
 @TableName("article")
-@ApiModel(value = "Article类",description = "文章资讯类")
+@ApiModel(value = "Article类", description = "文章资讯类")
 public class Article extends BaseModel {
 
     private static final long serialVersionUID = 1L;
@@ -31,55 +31,55 @@ public class Article extends BaseModel {
     /**
      * 栏目id
      */
-    @ApiModelProperty(name = "columnId",value = "栏目id")
+    @ApiModelProperty(name = "columnId", value = "栏目id")
     private String columnId;
 
     /**
      * 文章类型
      */
-    @ApiModelProperty(name = "typeId",value = "文章类型")
+    @ApiModelProperty(name = "typeId", value = "文章类型")
     private String typeId;
 
     /**
      * 文章标题
      */
-    @ApiModelProperty(name = "title",value = "文章标题")
+    @ApiModelProperty(name = "title", value = "文章标题")
     private String title;
 
     /**
      * 文章图片
      */
-    @ApiModelProperty(name = "picture",value = "文章图片")
+    @ApiModelProperty(name = "picture", value = "文章图片")
     private String picture;
 
     /**
      * 关键字
      */
-    @ApiModelProperty(name = "keyword",value = "关键字")
+    @ApiModelProperty(name = "keyword", value = "关键字")
     private String keyword;
 
     /**
      * 描述说明
      */
-    @ApiModelProperty(name = "description",value = "描述说明")
+    @ApiModelProperty(name = "description", value = "描述说明")
     private String description;
 
     /**
      * 文章来源
      */
-    @ApiModelProperty(name = "source",value = "文章来源")
+    @ApiModelProperty(name = "source", value = "文章来源")
     private String source;
 
     /**
      * 文章状态(0:未发布,1:已发布,2:已取消)
      */
-    @ApiModelProperty(name = "status",value = "文章状态(0:未发布,1:已发布,2:已取消)")
+    @ApiModelProperty(name = "status", value = "文章状态(0:未发布,1:已发布,2:已取消)")
     private String status;
 
     /**
      * 是否推荐(0:否,1:是)
      */
-    @ApiModelProperty(name = "recommend",value = "是否推荐(0:否,1:是)")
+    @ApiModelProperty(name = "recommend", value = "是否推荐(0:否,1:是)")
     private String recommend;
 
     /**
@@ -90,7 +90,7 @@ public class Article extends BaseModel {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
 
     /**
@@ -101,14 +101,14 @@ public class Article extends BaseModel {
     /**
      * 发布时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(name = "publishDate",value = "发布时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(name = "publishDate", value = "发布时间")
     private LocalDateTime publishDate;
 
     /**
      * 文章内容
      */
-    @ApiModelProperty(name = "content",value = "文章内容")
+    @ApiModelProperty(name = "content", value = "文章内容")
     private String content;
 
     /**
@@ -132,6 +132,7 @@ public class Article extends BaseModel {
     public void setColumnId(String columnId) {
         this.columnId = columnId;
     }
+
     public String getTitle() {
         return title;
     }
@@ -139,6 +140,7 @@ public class Article extends BaseModel {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getKeyword() {
         return keyword;
     }
@@ -146,6 +148,7 @@ public class Article extends BaseModel {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
     public String getDescription() {
         return description;
     }
@@ -153,6 +156,7 @@ public class Article extends BaseModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getSource() {
         return source;
     }
@@ -160,6 +164,7 @@ public class Article extends BaseModel {
     public void setSource(String source) {
         this.source = source;
     }
+
     public String getStatus() {
         return status;
     }
@@ -167,6 +172,7 @@ public class Article extends BaseModel {
     public void setStatus(String status) {
         this.status = status;
     }
+
     public String getCreateBy() {
         return createBy;
     }
@@ -174,6 +180,7 @@ public class Article extends BaseModel {
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
+
     public LocalDateTime getCreateDate() {
         return createDate;
     }
@@ -205,6 +212,7 @@ public class Article extends BaseModel {
     public void setContent(String content) {
         this.content = content;
     }
+
     public String getDisabled() {
         return disabled;
     }
@@ -250,20 +258,20 @@ public class Article extends BaseModel {
     @Override
     public String toString() {
         return "Article{" +
-        "columnId=" + columnId +
-        ", typeId=" + typeId +
-        ", title=" + title +
-        ", picture=" + picture +
-        ", keyword=" + keyword +
-        ", description=" + description +
-        ", source=" + source +
-        ", status=" + status +
-        ", createBy=" + createBy +
-        ", createDate=" + createDate +
-        ", publishBy=" + publishBy +
-        ", publishDate=" + publishDate +
-        ", content=" + content +
-        ", disabled=" + disabled +
-        "}";
+                "columnId=" + columnId +
+                ", typeId=" + typeId +
+                ", title=" + title +
+                ", picture=" + picture +
+                ", keyword=" + keyword +
+                ", description=" + description +
+                ", source=" + source +
+                ", status=" + status +
+                ", createBy=" + createBy +
+                ", createDate=" + createDate +
+                ", publishBy=" + publishBy +
+                ", publishDate=" + publishDate +
+                ", content=" + content +
+                ", disabled=" + disabled +
+                "}";
     }
 }

@@ -1,5 +1,5 @@
-Vue.component("icon-list",{
-    template:`<el-tabs type="border-card"> 
+Vue.component("icon-list", {
+    template: `<el-tabs type="border-card"> 
                 <el-tab-pane label="官方图标">
                     <ul class="icon-list">
                         <li @dblclick="dblclick"  v-for="icon in iconList" v-if="icon.type==0"  :class="icon.name === name ? 'active' : 'default' ">
@@ -22,39 +22,39 @@ Vue.component("icon-list",{
                 </el-tab-pane>
                </el-tabs>`,
     props: {
-        list:Array,
-        name:String,
+        list: Array,
+        name: String,
     },
-    data(){
+    data() {
         return {
-            iconList:[],
-            iconName:'',
+            iconList: [],
+            iconName: '',
         }
     },
     mounted() {
-        this.iconList=this.list;
+        this.iconList = this.list;
     },
-    methods:{
-        dblclick(e){
-            this.$emit('dblclick',e);
+    methods: {
+        dblclick(e) {
+            this.$emit('dblclick', e);
         }
     }
 })
 
-Vue.component("el-editor",{
-    template:`<div>
+Vue.component("el-editor", {
+    template: `<div>
                     <script id="editor" type="text/plain"></script>
               </div>
             `,
     props: {
         content: String,
-        contentStyle:String
+        contentStyle: String
     },
-    data(){
+    data() {
         return {
-            editor:null,
+            editor: null,
             config: {
-                initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+                initialContent: '请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
                 initialFrameWidth: 800,
                 initialFrameHeight: 450,
             },
@@ -62,17 +62,17 @@ Vue.component("el-editor",{
     },
     mounted() {
         const _this = this;
-        _this.editor = UE.getEditor("editor",_this.config)
+        _this.editor = UE.getEditor("editor", _this.config)
         _this.editor.addListener("ready", () => {
             _this.editor.setContent(_this.content || '')
         })
     },
-    methods:{
-       getUEContent() { // 获取内容方法
-           return this.editor.getContent()
-       }
+    methods: {
+        getUEContent() { // 获取内容方法
+            return this.editor.getContent()
+        }
     },
-    destroy(){
+    destroy() {
         this.editor.destroy();
     }
 })

@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zhoushengyuan
@@ -20,11 +20,11 @@ import java.util.Map;
  */
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    IPage<Map<String,Object>> selectPageMaps(IPage page,@Param("article") Article article);
+    IPage<Map<String, Object>> selectPageMaps(IPage page, @Param("article") Article article);
 
     List<Article> getArticleIndexList();
 
-    Map<String,Object> getArticleMap(@Param("id") String id);
+    Map<String, Object> getArticleMap(@Param("id") String id);
 
     List<Article> selectLikeMaps(@Param("keywords") List<String> keywords);
 }

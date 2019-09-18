@@ -5,7 +5,7 @@ import com.zhou.busi.entity.SysRoleMenu;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author zhoushengyuan

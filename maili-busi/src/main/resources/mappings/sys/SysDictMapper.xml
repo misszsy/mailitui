@@ -4,12 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.SysDict">
-    <result column="id" property="id" />
-        <result column="type" property="type" />
-        <result column="label" property="label" />
-        <result column="value" property="value" />
-        <result column="sort" property="sort" />
-        <result column="disabled" property="disabled" />
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="label" property="label"/>
+        <result column="value" property="value"/>
+        <result column="sort" property="sort"/>
+        <result column="disabled" property="disabled"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

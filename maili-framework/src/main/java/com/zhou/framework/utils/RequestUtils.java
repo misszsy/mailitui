@@ -8,7 +8,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUtils  {
+public class RequestUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestUtils.class);
 
     /**
@@ -21,7 +21,7 @@ public class RequestUtils  {
     public static Map<String, Object> getParameters(HttpServletRequest request,
                                                     boolean printLog) {
         Enumeration<String> enume = request.getParameterNames();
-        Map<String, Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         while (enume.hasMoreElements()) {
             String key = enume.nextElement();
             String value = request.getParameter(key);

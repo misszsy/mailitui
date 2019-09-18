@@ -28,10 +28,11 @@ public class ImageUtils {
 
     /**
      * 使用ImageReader 获取图片尺寸
+     *
      * @param src 源图片路径
      */
     public void getImageSizeByImageReader(String src) {
-        long beginTime =new Date().getTime();
+        long beginTime = new Date().getTime();
         File file = new File(src);
         try {
             Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("jpg");
@@ -47,6 +48,7 @@ public class ImageUtils {
 
     /**
      * 使用BufferedImage 获取图片尺寸
+     *
      * @param src 源图片路径
      */
     public void getImageSizeByBufferedImage(String src) {
@@ -72,6 +74,7 @@ public class ImageUtils {
 
     /**
      * 获取图片的宽
+     *
      * @param srcImageFile 源图片路径
      * @return
      */
@@ -111,7 +114,8 @@ public class ImageUtils {
 
     /**
      * 图片旋转指定角度
-     * @param src 文件流:源图像地址
+     *
+     * @param src   文件流:源图像地址
      * @param angel 旋转度
      * @return
      */
@@ -158,8 +162,9 @@ public class ImageUtils {
 
     /**
      * 保存图片
+     *
      * @param srcImageFile 文件流:源图像地址
-     * @param dest 新图像
+     * @param dest         新图像
      * @return
      */
     public static boolean saveImage(InputStream srcImageFile, File dest) {
@@ -223,21 +228,22 @@ public class ImageUtils {
 
     /**
      * 剪裁图片(x,y,w,h,r)
+     *
      * @param srcImageFile 文件流:源图像地址
-     * @param dest 新图像
-     * @param x 目标切片起点x坐标
-     * @param y 目标切片起点y坐标
-     * @param w 目标切片宽度
-     * @param h 目标切片高度
-     * @param r 目标切片旋转度
+     * @param dest         新图像
+     * @param x            目标切片起点x坐标
+     * @param y            目标切片起点y坐标
+     * @param w            目标切片宽度
+     * @param h            目标切片高度
+     * @param r            目标切片旋转度
      * @return
      */
     public static boolean cutAndRotateImage(InputStream srcImageFile, File dest, int x, int y, int w, int h, int r) {
         try {
-			/*
-			 * BufferedImage是Image的一个子类，BufferedImage生成的图片在内存里有一个图像缓冲区，
-			 * 利用这个缓冲区我们可以很方便的操作这个图片，通常用来做图片修改操作如大小变换、图片变灰、设置图片透明或不透明等。
-			 */
+            /*
+             * BufferedImage是Image的一个子类，BufferedImage生成的图片在内存里有一个图像缓冲区，
+             * 利用这个缓冲区我们可以很方便的操作这个图片，通常用来做图片修改操作如大小变换、图片变灰、设置图片透明或不透明等。
+             */
             BufferedImage src = ImageIO.read(srcImageFile); // 读入文件
 
             // 图片旋转指定角度
@@ -386,7 +392,8 @@ public class ImageUtils {
 
     /**
      * 彩色转为黑白
-     * @param srcImageFile 源图像地址
+     *
+     * @param srcImageFile  源图像地址
      * @param destImageFile 目标图像地址
      */
     public static final void gray(String srcImageFile, String destImageFile) {
@@ -403,12 +410,13 @@ public class ImageUtils {
 
     /**
      * 给图片添加图片水印
-     * @param pressImg 水印图片
-     * @param srcImageFile 源图像地址
+     *
+     * @param pressImg      水印图片
+     * @param srcImageFile  源图像地址
      * @param destImageFile 目标图像地址
-     * @param x 修正值。 默认在中间
-     * @param y 修正值。 默认在中间
-     * @param alpha 透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     * @param x             修正值。 默认在中间
+     * @param y             修正值。 默认在中间
+     * @param alpha         透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
      */
     public static boolean pressImage(String pressImg, String srcImageFile, String destImageFile, int x, int y,
                                      float alpha) {
@@ -442,16 +450,17 @@ public class ImageUtils {
 
     /**
      * 给图片添加文字水印
-     * @param pressText 水印文字
-     * @param srcImageFile 源图像地址
+     *
+     * @param pressText     水印文字
+     * @param srcImageFile  源图像地址
      * @param destImageFile 目标图像地址
-     * @param fontName 水印的字体名称
-     * @param fontStyle 水印的字体样式
-     * @param color 水印的字体颜色
-     * @param fontSize 水印的字体大小
-     * @param x 修正值
-     * @param y 修正值
-     * @param alpha 透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     * @param fontName      水印的字体名称
+     * @param fontStyle     水印的字体样式
+     * @param color         水印的字体颜色
+     * @param fontSize      水印的字体大小
+     * @param x             修正值
+     * @param y             修正值
+     * @param alpha         透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
      */
     public static boolean pressText(String pressText, String srcImageFile, String destImageFile, String fontName,
                                     int fontStyle, Color color, int fontSize, int x, int y, float alpha) {
@@ -483,6 +492,7 @@ public class ImageUtils {
 
     /**
      * 计算text的长度（一个中文算两个字符）
+     *
      * @param text
      * @return
      */

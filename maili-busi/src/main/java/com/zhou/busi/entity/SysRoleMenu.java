@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -33,6 +33,7 @@ public class SysRoleMenu extends Model<SysRoleMenu> {
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
+
     public String getMenuId() {
         return menuId;
     }
@@ -44,8 +45,8 @@ public class SysRoleMenu extends Model<SysRoleMenu> {
     @Override
     public String toString() {
         return "SysRoleMenu{" +
-        "roleId=" + roleId +
-        ", menuId=" + menuId +
-        "}";
+                "roleId=" + roleId +
+                ", menuId=" + menuId +
+                "}";
     }
 }

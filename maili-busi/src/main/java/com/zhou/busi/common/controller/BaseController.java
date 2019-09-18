@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Validator;
 
-public abstract class BaseController<S extends IService<T>,T extends BaseModel> {
+public abstract class BaseController<S extends IService<T>, T extends BaseModel> {
 
     @Autowired
     protected S baseService;
@@ -31,48 +31,52 @@ public abstract class BaseController<S extends IService<T>,T extends BaseModel> 
     protected Validator validator;
 
     public R listData(QueryWrapper wrapper, Integer pageNum, Integer pageSize) {
-        IPage page=baseService.page(new Page<>(pageNum,pageSize),wrapper);
+        IPage page = baseService.page(new Page<>(pageNum, pageSize), wrapper);
         return R.ok(page);
     }
 
 
     /**
      * 根据id获取对象返回
+     *
      * @param id
      * @return
      */
-    public R get(@PathVariable String id){
+    public R get(@PathVariable String id) {
         return R.ok(baseService.getById(id));
     }
 
     /**
      * 新增
+     *
      * @param obj
      * @return
      */
-    public R save(T obj){
+    public R save(T obj) {
         beanValidator(obj);
         baseService.save(obj);
-        return  R.ok(get(obj.getId()));
+        return R.ok(get(obj.getId()));
     }
 
     /**
      * 更新
+     *
      * @param obj
      * @return
      */
-    public R update(T obj){
-       beanValidator(obj);
+    public R update(T obj) {
+        beanValidator(obj);
         baseService.updateById(obj);
-       return R.ok(get(obj.getId()));
+        return R.ok(get(obj.getId()));
     }
 
     /**
      * 删除
+     *
      * @param id
      * @return
      */
-    public R remove(@PathVariable String id){
+    public R remove(@PathVariable String id) {
         baseService.removeById(id);
         return R.ok();
     }
@@ -81,13 +85,11 @@ public abstract class BaseController<S extends IService<T>,T extends BaseModel> 
     /**
      * 服务端参数有效性验证
      *
-     * @param object
-     *            验证的实体对象
-     * @param groups
-     *            验证组
+     * @param object 验证的实体对象
+     * @param groups 验证组
      * @return 验证成功：返回true；严重失败：将错误信息添加到 message 中
      */
-    protected void beanValidator(Object object,Class<?>... groups) {
+    protected void beanValidator(Object object, Class<?>... groups) {
         BeanValidators.validateWithException(validator, object, groups);
     }
 }

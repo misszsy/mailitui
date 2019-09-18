@@ -4,11 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.SysUser">
-        <id column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="name" property="name" />
-        <result column="disabled" property="disabled" />
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="disabled" property="disabled"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -18,10 +18,10 @@
 
     <select id="getRoleByUserId" resultType="SysRole">
         SELECT
-            a.role_id as "id",
-            b.code as "code"
+        a.role_id as "id",
+        b.code as "code"
         FROM
-         sys_user_role a INNER JOIN sys_role b ON a.role_id=b.id  WHERE a.user_id = #{id}
+        sys_user_role a INNER JOIN sys_role b ON a.role_id=b.id WHERE a.user_id = #{id}
     </select>
 
 

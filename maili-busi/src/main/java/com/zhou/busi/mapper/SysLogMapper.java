@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zhoushengyuan
@@ -17,5 +17,5 @@ import java.util.Map;
  */
 public interface SysLogMapper extends BaseMapper<SysLog> {
 
-    IPage<Map<String,Object>> selectPageMaps(Page page, SysLog log);
+    IPage<Map<String, Object>> selectPageMaps(Page page, SysLog log);
 }

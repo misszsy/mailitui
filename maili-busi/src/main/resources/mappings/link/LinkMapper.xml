@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.Link">
-    <result column="id" property="id" />
-        <result column="logo" property="logo" />
-        <result column="name" property="name" />
-        <result column="site" property="site" />
+        <result column="id" property="id"/>
+        <result column="logo" property="logo"/>
+        <result column="name" property="name"/>
+        <result column="site" property="site"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

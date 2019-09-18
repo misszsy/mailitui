@@ -35,6 +35,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     /**
      * 获取用户的角色信息
+     *
      * @param id
      * @return
      */
@@ -46,55 +47,57 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     /**
      * 新增用户
+     *
      * @param sysUser
      */
     @Transactional
     @Override
-    public boolean save(SysUser sysUser){
+    public boolean save(SysUser sysUser) {
         //密码加密String plaintextPassword = sysUser.getPassword();
-        String encrypted =  CryptoUtils.encryptPassword(sysUser.getPassword());
+        String encrypted = CryptoUtils.encryptPassword(sysUser.getPassword());
         sysUser.setPassword(encrypted);
         super.save(sysUser);
 
-        List<SysUserRole>  userRoleList=formmatSysUserRoleList(sysUser.getRoleList(),sysUser.getId());
+        List<SysUserRole> userRoleList = formmatSysUserRoleList(sysUser.getRoleList(), sysUser.getId());
 
-        if(CollectionUtils.isNotEmpty(userRoleList)){
+        if (CollectionUtils.isNotEmpty(userRoleList)) {
             sysUserRoleService.saveBatch(userRoleList);
-        }else{
-            throw new BusinessException(sysUser.getUsername()+"未设置角色信息");
+        } else {
+            throw new BusinessException(sysUser.getUsername() + "未设置角色信息");
         }
         return true;
     }
 
     /**
      * 更新用户信息
+     *
      * @param sysUser
      */
     @Transactional
     @Override
-    public boolean updateById(SysUser sysUser){
+    public boolean updateById(SysUser sysUser) {
         super.updateById(sysUser);
 
-        List<SysUserRole>  userRoleList=formmatSysUserRoleList(sysUser.getRoleList(),sysUser.getId());
+        List<SysUserRole> userRoleList = formmatSysUserRoleList(sysUser.getRoleList(), sysUser.getId());
 
-        if(CollectionUtils.isNotEmpty(userRoleList)){
+        if (CollectionUtils.isNotEmpty(userRoleList)) {
             //删除该用户已存在的用户角色关系
             sysUserRoleService.remove(new QueryWrapper<SysUserRole>()
-                              .lambda()
-                              .eq(SysUserRole::getUserId,sysUser.getId()));
+                    .lambda()
+                    .eq(SysUserRole::getUserId, sysUser.getId()));
 
             sysUserRoleService.saveBatch(userRoleList);
-        }else{
-            throw new BusinessException(sysUser.getUsername()+"未设置角色信息");
+        } else {
+            throw new BusinessException(sysUser.getUsername() + "未设置角色信息");
         }
         UserUtils.clearCache(sysUser);
         return true;
     }
 
 
-     private List<SysUserRole> formmatSysUserRoleList(List<SysRole> roleList, String userId) {
+    private List<SysUserRole> formmatSysUserRoleList(List<SysRole> roleList, String userId) {
         List<SysUserRole> userRoleList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(roleList)) {
+        if (CollectionUtils.isNotEmpty(roleList)) {
             for (SysRole role : roleList) {
                 //用户角色关系
                 SysUserRole sysUserRole = new SysUserRole();

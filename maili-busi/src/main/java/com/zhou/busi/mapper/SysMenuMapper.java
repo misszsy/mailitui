@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zhoushengyuan
@@ -18,6 +18,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
      * 根据用户id获取其对应的角色菜单列表
+     *
      * @param userId
      * @return
      */

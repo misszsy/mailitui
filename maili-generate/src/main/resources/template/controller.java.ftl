@@ -9,51 +9,51 @@ import com.zhou.busi.entity.${table.entityName};
 import com.zhou.busi.service.${table.serviceName};
 
 <#if restControllerStyle>
-import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.bind.annotation.RestController;
 <#else>
-import org.springframework.stereotype.Controller;
+    import org.springframework.stereotype.Controller;
 </#if>
 <#if superControllerClassPackage??>
-import ${superControllerClassPackage};
+    import ${superControllerClassPackage};
 </#if>
 
 /**
- * <p>
- * ${table.comment!} 前端控制器
- * </p>
- *
- * @author ${author}
- * @since ${date}
- */
+* <p>
+    * ${table.comment!} 前端控制器
+    * </p>
+*
+* @author ${author}
+* @since ${date}
+*/
 <#if restControllerStyle>
-@RestController
+    @RestController
 <#else>
-@Controller
+    @Controller
 </#if>
 @RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 <#if kotlin>
-class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
+    class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
-<#if superControllerClass??>
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName},${table.entityName}> {
-<#else>
-public class ${table.controllerName} {
-</#if>
+    <#if superControllerClass??>
+        public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName},${table.entityName}> {
+    <#else>
+        public class ${table.controllerName} {
+    </#if>
 
 
     public String getViewPath() {
-        return "${table.entityPath}/";
+    return "${table.entityPath}/";
     }
 
 
-   /**
+    /**
     *
     * 页面跳转
     */
     @GetMapping("list")
     @RequiresPermissions("sys:${table.entityPath}:view")
     public String listView() {
-        return getViewPath() + "list";
+    return getViewPath() + "list";
     }
 
     /**
@@ -65,8 +65,8 @@ public class ${table.controllerName} {
     */
     @GetMapping(value = {"listData"})
     public @ResponseBody R listData(${table.entityName} ${table.entityPath}, Integer pageNum, Integer pageSize) {
-        QueryWrapper wrapper=new QueryWrapper<${table.entityName}>();
-        return super.listData(wrapper, pageNum, pageSize);
+    QueryWrapper wrapper=new QueryWrapper<${table.entityName}>();
+    return super.listData(wrapper, pageNum, pageSize);
     }
 
     /**
@@ -78,8 +78,8 @@ public class ${table.controllerName} {
     @PostMapping("save")
     @RequiresPermissions("sys:${table.entityPath}:save")
     public @ResponseBody R save(${table.entityName} ${table.entityPath}) {
-        beanValidator(${table.entityPath});
-        return super.save(${table.entityPath});
+    beanValidator(${table.entityPath});
+    return super.save(${table.entityPath});
     }
 
     /**
@@ -90,8 +90,8 @@ public class ${table.controllerName} {
     @PostMapping("update")
     @RequiresPermissions("sys:${table.entityPath}:update")
     public @ResponseBody R update(${table.entityName} ${table.entityPath}) {
-        beanValidator(${table.entityPath});
-        return super.update(${table.entityPath});
+    beanValidator(${table.entityPath});
+    return super.update(${table.entityPath});
     }
 
     /**
@@ -103,7 +103,7 @@ public class ${table.controllerName} {
     @PostMapping("remove/{id}")
     @RequiresPermissions("sys:${table.entityPath}:remove")
     public @ResponseBody R remove(@PathVariable String id) {
-     return super.remove(id);
+    return super.remove(id);
     }
 
 
@@ -115,7 +115,7 @@ public class ${table.controllerName} {
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:${table.entityPath}:update")
     public @ResponseBody R get(@PathVariable  String id) {
-        return super.get(id);
+    return super.get(id);
     }
-}
+    }
 </#if>

@@ -16,7 +16,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zhoushengyuan
@@ -25,7 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 @Controller
 @RequestMapping("/link")
-public class LinkController extends BaseController<LinkService,Link> {
+public class LinkController extends BaseController<LinkService, Link> {
 
 
     public String getViewPath() {
@@ -33,10 +33,9 @@ public class LinkController extends BaseController<LinkService,Link> {
     }
 
 
-   /**
-    *
-    * 页面跳转
-    */
+    /**
+     * 页面跳转
+     */
     @GetMapping("list")
     @RequiresPermissions("sys:link:view")
     public String listView() {
@@ -44,64 +43,74 @@ public class LinkController extends BaseController<LinkService,Link> {
     }
 
     /**
-    * 分页查询列表
-    * @param link
-    * @param pageNum
-    * @param pageSize
-    * @return
-    */
+     * 分页查询列表
+     *
+     * @param link
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = {"listData"})
-    public @ResponseBody R listData(Link link, Integer pageNum, Integer pageSize) {
-        QueryWrapper wrapper=new QueryWrapper<Link>();
+    public @ResponseBody
+    R listData(Link link, Integer pageNum, Integer pageSize) {
+        QueryWrapper wrapper = new QueryWrapper<Link>();
         return super.listData(wrapper, pageNum, pageSize);
     }
 
     /**
-    * 新增
-    * @param entity
-    * @return
-    */
+     * 新增
+     *
+     * @param entity
+     * @return
+     */
     @Log(value = "新增")
     @PostMapping("save")
     @RequiresPermissions("sys:link:save")
-    public @ResponseBody R save(Link link) {
+    public @ResponseBody
+    R save(Link link) {
         beanValidator(link);
         return super.save(link);
     }
 
     /**
-    * 更新
-    * @return
-    */
+     * 更新
+     *
+     * @return
+     */
     @Log(value = "更新")
     @PostMapping("update")
     @RequiresPermissions("sys:link:update")
-    public @ResponseBody R update(Link link) {
+    public @ResponseBody
+    R update(Link link) {
         beanValidator(link);
         return super.update(link);
     }
 
     /**
-    * 删除
-    * @param id
-    * @return
-    */
+     * 删除
+     *
+     * @param id
+     * @return
+     */
     @Log(value = "删除")
     @PostMapping("remove/{id}")
     @RequiresPermissions("sys:link:remove")
-    public @ResponseBody R remove(@PathVariable String id) {
-     return super.remove(id);
+    public @ResponseBody
+    R remove(@PathVariable String id) {
+        return super.remove(id);
     }
 
 
     /**
-    * 根据id获取
-    * @param id
-    * @return
-    */
+     * 根据id获取
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:link:update")
-    public @ResponseBody R get(@PathVariable  String id) {
+    public @ResponseBody
+    R get(@PathVariable String id) {
         return super.get(id);
     }
 }

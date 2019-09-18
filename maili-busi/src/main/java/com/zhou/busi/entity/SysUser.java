@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2018-11-08
  */
 @TableName("sys_user")
-@ApiModel(value = "SysUser类",description = "系统用户类")
+@ApiModel(value = "SysUser类", description = "系统用户类")
 public class SysUser extends BaseModel<SysUser> {
 
     private static final long serialVersionUID = 1L;
@@ -26,33 +26,33 @@ public class SysUser extends BaseModel<SysUser> {
     /**
      * 登录名称
      */
-    @ApiModelProperty(name = "username",value = "登录名称",dataType = "String")
+    @ApiModelProperty(name = "username", value = "登录名称", dataType = "String")
     private String username;
 
     /**
      * 登录密码
      */
-    @ApiModelProperty(name = "password",value = "登录密码",dataType = "String")
+    @ApiModelProperty(name = "password", value = "登录密码", dataType = "String")
     private String password;
 
     /**
      * 真实姓名
      */
-    @ApiModelProperty(name = "name",value = "真实姓名",dataType = "String")
+    @ApiModelProperty(name = "name", value = "真实姓名", dataType = "String")
     private String name;
 
     /**
      * 删除标志(0:否,1:是)
      */
     @TableLogic
-    @ApiModelProperty(name = "disabled",value = " 删除标志(0:否,1:是)",dataType = "String")
+    @ApiModelProperty(name = "disabled", value = " 删除标志(0:否,1:是)", dataType = "String")
     private String disabled;
 
     @TableField(exist = false)
-    @ApiModelProperty(name = "roleList",value = "角色信息集合",dataType = "SysRole")
+    @ApiModelProperty(name = "roleList", value = "角色信息集合", dataType = "SysRole")
     private List<SysRole> roleList;
 
-    public SysUser(){
+    public SysUser() {
         super();
     }
 
@@ -67,6 +67,7 @@ public class SysUser extends BaseModel<SysUser> {
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getPassword() {
         return password;
     }
@@ -74,6 +75,7 @@ public class SysUser extends BaseModel<SysUser> {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getName() {
         return name;
     }
@@ -81,6 +83,7 @@ public class SysUser extends BaseModel<SysUser> {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDisabled() {
         return disabled;
     }
@@ -100,11 +103,11 @@ public class SysUser extends BaseModel<SysUser> {
     @Override
     public String toString() {
         return "SysUser{" +
-        "id=" + getId() +
-        ", username=" + username +
-        ", password=" + password +
-        ", name=" + name +
-        ", disabled=" + disabled +
-        "}";
+                "id=" + getId() +
+                ", username=" + username +
+                ", password=" + password +
+                ", name=" + name +
+                ", disabled=" + disabled +
+                "}";
     }
 }

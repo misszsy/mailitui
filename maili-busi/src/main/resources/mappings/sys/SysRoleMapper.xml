@@ -4,11 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.SysRole">
-    <result column="id" property="id" />
-        <result column="code" property="code" />
-        <result column="name" property="name" />
-        <result column="disabled" property="disabled" />
-        <result column="menu_ids" property="menuIds" />
+        <result column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="disabled" property="disabled"/>
+        <result column="menu_ids" property="menuIds"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -22,7 +22,7 @@
         code
         FROM
         sys_role a left join sys_user_role b on a.id=b.role_id
-        left join sys_user 	   c on c.id=b.user_id
+        left join sys_user c on c.id=b.user_id
         WHERE
         b.user_id=#{userId} and a.code='0000'
     </select>

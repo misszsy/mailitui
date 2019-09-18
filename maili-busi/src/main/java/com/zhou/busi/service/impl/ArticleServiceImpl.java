@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  新闻服务实现类
+ * 新闻服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -31,23 +31,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public IPage<Map<String, Object>> pageMaps(IPage<Article> page, Wrapper<Article> queryWrapper) {
-        return baseMapper.selectPageMaps(page,queryWrapper.getEntity());
+        return baseMapper.selectPageMaps(page, queryWrapper.getEntity());
     }
 
 
     /**
      * 获取公司新闻和媒体报道
+     *
      * @return
      */
     @Override
-    public Map<String,List<Article>> getArticleIndexMap() {
-        Map<String,List<Article>> mapList=baseMapper.getArticleIndexList()
-                                        .stream().collect(Collectors.groupingBy(Article::getTypeId));
+    public Map<String, List<Article>> getArticleIndexMap() {
+        Map<String, List<Article>> mapList = baseMapper.getArticleIndexList()
+                .stream().collect(Collectors.groupingBy(Article::getTypeId));
         return mapList;
     }
 
     /**
      * 根据id查询文章详情上下篇
+     *
      * @param queryWrapper
      * @return
      */
@@ -58,6 +60,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 多个关键字模糊查询
+     *
      * @param keywords
      * @return
      */

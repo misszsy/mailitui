@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 /**
  * 授权用户信息
+ *
  * @author bone
  * @version 2017-07-27
  */
@@ -18,9 +19,9 @@ public class Principal implements Serializable {
 
     private String name; //名称
 
-    public Principal(String id, String username,String name) {
+    public Principal(String id, String username, String name) {
         this.id = id;
-        this.username=username;
+        this.username = username;
         this.name = name;
     }
 

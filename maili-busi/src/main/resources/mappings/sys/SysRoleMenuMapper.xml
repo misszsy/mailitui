@@ -4,8 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.SysRoleMenu">
-        <result column="role_id" property="roleId" />
-        <result column="menu_id" property="menuId" />
+        <result column="role_id" property="roleId"/>
+        <result column="menu_id" property="menuId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

@@ -3,7 +3,7 @@
  */
 
 //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
-if($.validator){
+if ($.validator) {
     $.validator.setDefaults({
         highlight: function (element) {
             $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -24,7 +24,7 @@ if($.validator){
     });
 }
 
-getDate  = function (obj) {
+getDate = function (obj) {
     var oYear = obj.getFullYear(),
         oMonth = obj.getMonth() + 1,
         oDay = obj.getDate();
@@ -36,14 +36,14 @@ getDate  = function (obj) {
         this.getZeroFormat(oDay);
     return oDate;
 },
-getZeroFormat  = function(num) {
-    if (parseInt(num) < 10) {
-        num = "0" + parseInt(num);
-    }
-    return num;
-};
-emailverify = function(rule, value, callback){
-    setTimeout(function(){
+    getZeroFormat = function (num) {
+        if (parseInt(num) < 10) {
+            num = "0" + parseInt(num);
+        }
+        return num;
+    };
+emailverify = function (rule, value, callback) {
+    setTimeout(function () {
         if (!/(^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$)/i.test(value)) {
             callback(new Error('请书写正确格式'));
         } else {
@@ -56,7 +56,7 @@ emailverify = function(rule, value, callback){
 var commonUtils = {};
 
 commonUtils.getUrlParam = function (name) {
-    if(window.location) {
+    if (window.location) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) {
@@ -69,9 +69,9 @@ commonUtils.getUrlParam = function (name) {
 commonUtils.selectMenu = function (settings) {
 
     var options = {
-        title : '选择父节点',
-        currentId : null,
-        yesCallback : function (node) {
+        title: '选择父节点',
+        currentId: null,
+        yesCallback: function (node) {
 
         }
     };
@@ -88,15 +88,15 @@ commonUtils.selectMenu = function (settings) {
         moveType: 1,//拖拽模式，0或者1
         content: '/common/selectMenu',
         btn: ['确认', '取消'],
-        yes:function(index,layero){
+        yes: function (index, layero) {
             var selectMenuWindow = $("#LAY_selectMenu").find("iframe")[0].contentWindow;
             var selectNode = selectMenuWindow.selectMenu_selectNode;
 
             var ztreeObj = selectMenuWindow.selectMenu_ztreeObj;
 
-            if(options.currentId){
+            if (options.currentId) {
                 var currentNode = ztreeObj.getNodeByParam("id", options.currentId);
-                if(isChild(currentNode , selectNode)){
+                if (isChild(currentNode, selectNode)) {
                     layer.alert("不能选择当前节点或者当前节点的子节点");
                     return false;
                 }
@@ -109,13 +109,13 @@ commonUtils.selectMenu = function (settings) {
 
     function isChild(currentNode, childNode) {
 
-        if(currentNode.id == childNode.id){
+        if (currentNode.id == childNode.id) {
             return true;
         }
 
-        if(currentNode.isParent) {
+        if (currentNode.isParent) {
             var childrens = currentNode.children;
-            for(var i=0; i<childrens.length; i++){
+            for (var i = 0; i < childrens.length; i++) {
                 return isChild(childrens[i], childNode);
             }
         }
@@ -124,37 +124,37 @@ commonUtils.selectMenu = function (settings) {
     }
 
 };
-dataErrorHandler = function(res){
-    if(res.code == 401 ){
+dataErrorHandler = function (res) {
+    if (res.code == 401) {
         app.$alert(res.message, '提示', {
             confirmButtonText: '确定',
             type: 'warning',
             callback: action => {
-                window.parent.location.href="/logout";
+                window.parent.location.href = "/logout";
             }
         });
-    }else if(res.code == 400){
+    } else if (res.code == 400) {
         app.$message({
             showClose: true,
-            message:res.message,
+            message: res.message,
             type: 'error'
         });
-    }else if(res.code == 403){
+    } else if (res.code == 403) {
         app.$message({
             showClose: true,
-            message:"没有操作权限",
+            message: "没有操作权限",
             type: 'warning'
         });
-    }else if(res.code == 500){
+    } else if (res.code == 500) {
         app.$message({
             showClose: true,
-            message:"系统异常!",
+            message: "系统异常!",
             type: 'error'
         });
     }
 };
 
-formatterAmount=function(s, n) {
+formatterAmount = function (s, n) {
     n = n > 0 && n <= 20 ? n : 2;
     s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
     var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
@@ -165,7 +165,7 @@ formatterAmount=function(s, n) {
     return t.split("").reverse().join("") + "." + r;
 };
 
-formatterCard=function(id){
+formatterCard = function (id) {
     var v, j, sj, rv = "";
     id = $.trim(id);
     id = id.replace(/\s+/g, "");
@@ -186,7 +186,7 @@ formatterCard=function(id){
     return rvalue;
 };
 
-isMaxfile = function(file,fileList){
+isMaxfile = function (file, fileList) {
     app.loading = true;
 };
 

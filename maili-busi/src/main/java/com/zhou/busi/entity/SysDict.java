@@ -6,7 +6,7 @@ import com.zhou.busi.common.entity.BaseModel;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -50,6 +50,7 @@ public class SysDict extends BaseModel {
     public void setType(String type) {
         this.type = type;
     }
+
     public String getLabel() {
         return label;
     }
@@ -57,6 +58,7 @@ public class SysDict extends BaseModel {
     public void setLabel(String label) {
         this.label = label;
     }
+
     public String getValue() {
         return value;
     }
@@ -64,6 +66,7 @@ public class SysDict extends BaseModel {
     public void setValue(String value) {
         this.value = value;
     }
+
     public Integer getSort() {
         return sort;
     }
@@ -71,6 +74,7 @@ public class SysDict extends BaseModel {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
     public String getDisabled() {
         return disabled;
     }
@@ -82,11 +86,11 @@ public class SysDict extends BaseModel {
     @Override
     public String toString() {
         return "SysDict{" +
-        "type=" + type +
-        ", label=" + label +
-        ", value=" + value +
-        ", sort=" + sort +
-        ", disabled=" + disabled +
-        "}";
+                "type=" + type +
+                ", label=" + label +
+                ", value=" + value +
+                ", sort=" + sort +
+                ", disabled=" + disabled +
+                "}";
     }
 }

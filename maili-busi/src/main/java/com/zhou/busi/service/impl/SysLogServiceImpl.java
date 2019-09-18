@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -23,6 +23,6 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
 
     @Override
     public IPage<Map<String, Object>> selectPageMaps(Page page, SysLog sysLog) {
-        return baseMapper.selectPageMaps(page,sysLog);
+        return baseMapper.selectPageMaps(page, sysLog);
     }
 }

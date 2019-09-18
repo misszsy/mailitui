@@ -1,14 +1,13 @@
 package com.zhou.framework.utils;
 
 
-
 import java.util.Random;
 
 /**
  * 来自于twitter项目snowflake的id产生方案，全局唯一，时间有序。
  * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
  * https://github.com/twitter/snowflake/blob/scala_28/src/main/
- * 		scala/com/twitter/service/snowflake/IdWorker.scala
+ * scala/com/twitter/service/snowflake/IdWorker.scala
  */
 public class IdWorker {
 
@@ -41,23 +40,23 @@ public class IdWorker {
 
     public IdWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
-            if (workerId == -1){
-                this.workerId = new Random().nextInt((int)maxWorkerId);
-            }else{
+            if (workerId == -1) {
+                this.workerId = new Random().nextInt((int) maxWorkerId);
+            } else {
                 throw new IllegalArgumentException(
                         "worker Id can't be greater than %d or less than 0");
             }
-        }else{
+        } else {
             this.workerId = workerId;
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            if (datacenterId == -1){
-                this.datacenterId = new Random().nextInt((int)maxDatacenterId);
-            }else{
+            if (datacenterId == -1) {
+                this.datacenterId = new Random().nextInt((int) maxDatacenterId);
+            } else {
                 throw new IllegalArgumentException(
                         "datacenter Id can't be greater than %d or less than 0");
             }
-        }else{
+        } else {
             this.datacenterId = datacenterId;
         }
     }

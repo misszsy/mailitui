@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="static/css/common/style/layout.css" th:href="@{/static/css/common/style/layout.css}">
     <link rel="stylesheet" href="static/css/icon/iconfont.css" th:href="@{/static/css/icon/iconfont.css}">
     <link rel="shortcut icon" th:href="@{/static/img/favicon.ico}">
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <script>if (window.top !== window.self) {
+        window.top.location = window.location;
+    }</script>
 </head>
 <style>
     .login-container {
@@ -24,15 +26,18 @@
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
     }
+
     .title {
         margin: 0px auto 40px auto;
         text-align: center;
         color: #505458;
     }
+
     .remember {
         margin: 0px 0px 35px 0px;
     }
-    .gray-bg{
+
+    .gray-bg {
         background-image: url(static/img/bg_login.png);
         background-repeat: no-repeat;
         background-size: cover
@@ -40,21 +45,22 @@
 </style>
 <body class="gray-bg">
 <div id="app" class="app-container calendar-list-container" v-cloak>
-    <el-form :model="entity" :rules="rules" ref="dataForm" label-position="left" label-width="0px" class="login-container">
+    <el-form :model="entity" :rules="rules" ref="dataForm" label-position="left" label-width="0px"
+             class="login-container">
         <h3 class="title">麦力推后台系统</h3>
         <el-form-item prop="username">
-            <el-input type="text" v-model="entity.username"  auto-complete="off" placeholder="请输入账号">
-                <template slot="prepend" ><i class="sy-icon-user"></i></template>
+            <el-input type="text" v-model="entity.username" auto-complete="off" placeholder="请输入账号">
+                <template slot="prepend"><i class="sy-icon-user"></i></template>
             </el-input>
         </el-form-item>
         <el-form-item prop="password">
             <el-input type="password" v-model="entity.password" auto-complete="off" placeholder="请输入密码">
-                <template slot="prepend" ><i class="sy-icon-passwd"></i></template>
+                <template slot="prepend"><i class="sy-icon-passwd"></i></template>
             </el-input>
         </el-form-item>
         <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
         <el-form-item style="width:100%;">
-            <el-button type="primary" style="width:100%;"   @click="loginData" :loading="loading">登录</el-button>
+            <el-button type="primary" style="width:100%;" @click="loginData" :loading="loading">登录</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -74,11 +80,11 @@
             return {
                 tableKey: 0,
                 listLoading: true,
-                checked:false,
+                checked: false,
                 loading: false,
                 entity: {//临时变量，用于新增与修改
-                    username:'',
-                    password:'',
+                    username: '',
+                    password: '',
                 },
                 dialogFormVisible: false,
                 dialogStatus: '',
@@ -87,33 +93,33 @@
                     create: '新增'
                 },
                 rules: {//表单验证
-                    username: [{ required: true, message: '请输入账号', trigger: 'change' }],
-                    password: [{ required: true, message: '请输入密码', trigger: 'change' }],
+                    username: [{required: true, message: '请输入账号', trigger: 'change'}],
+                    password: [{required: true, message: '请输入密码', trigger: 'change'}],
                 },
             }
         },
         created() {
         },
         methods: {
-            loginData(){
+            loginData() {
                 const _this = this;
                 this.$refs['dataForm'].validate((valid) => {
                     if (valid) {
-                            $.ajax({
-                                method: 'POST',
-                                url: 'login',
-                                data: _this.entity,
-                                beforeSend: function () {
-                                    _this.loading = true;
-                                },
-                                success: function (data) {
-                                    if(data.code==200){
-                                        return location.href='index';
-                                    } else {
-                                        _this.loading = false;
-                                        window.dataErrorHandler(data)
-                                    }
+                        $.ajax({
+                            method: 'POST',
+                            url: 'login',
+                            data: _this.entity,
+                            beforeSend: function () {
+                                _this.loading = true;
+                            },
+                            success: function (data) {
+                                if (data.code == 200) {
+                                    return location.href = 'index';
+                                } else {
+                                    _this.loading = false;
+                                    window.dataErrorHandler(data)
                                 }
+                            }
                         })
                     }
                 })

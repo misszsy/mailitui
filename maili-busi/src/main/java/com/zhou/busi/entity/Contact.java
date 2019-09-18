@@ -48,6 +48,7 @@ public class Contact extends BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getMobile() {
         return mobile;
     }
@@ -55,6 +56,7 @@ public class Contact extends BaseModel {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
     public String getDisabled() {
         return disabled;
     }

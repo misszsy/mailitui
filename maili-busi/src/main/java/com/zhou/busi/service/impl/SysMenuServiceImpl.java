@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -22,6 +22,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     /**
      * 获取角色授权的菜单列表
+     *
      * @param userId
      * @return
      */
@@ -34,6 +35,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     /**
      * 获取当前用户菜单的权限标识
+     *
      * @param userId
      * @return
      */

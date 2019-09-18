@@ -9,14 +9,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
  * @since 2019-01-21
  */
 @TableName("link")
-@ApiModel(value = "Link类",description = "友情链接类")
+@ApiModel(value = "Link类", description = "友情链接类")
 public class Link extends BaseModel {
 
     private static final long serialVersionUID = 1L;
@@ -32,13 +32,13 @@ public class Link extends BaseModel {
     /**
      * 名称
      */
-    @ApiModelProperty(name = "name",value = "网站名称")
+    @ApiModelProperty(name = "name", value = "网站名称")
     private String name;
 
     /**
      * 网站
      */
-    @ApiModelProperty(name = "site",value = "网站地址")
+    @ApiModelProperty(name = "site", value = "网站地址")
     private String site;
 
     @Override
@@ -58,6 +58,7 @@ public class Link extends BaseModel {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+
     public String getName() {
         return name;
     }
@@ -65,6 +66,7 @@ public class Link extends BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getSite() {
         return site;
     }
@@ -76,9 +78,9 @@ public class Link extends BaseModel {
     @Override
     public String toString() {
         return "Link{" +
-        "logo=" + logo +
-        ", name=" + name +
-        ", site=" + site +
-        "}";
+                "logo=" + logo +
+                ", name=" + name +
+                ", site=" + site +
+                "}";
     }
 }

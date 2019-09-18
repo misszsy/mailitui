@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author zhoushengyuan
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface ArticleService extends IService<Article> {
 
-    Map<String,List<Article>> getArticleIndexMap();
+    Map<String, List<Article>> getArticleIndexMap();
 
     List<Article> selectLikeMaps(@Param("keywords") List<String> keywords);
 }

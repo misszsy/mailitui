@@ -4,15 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zhou.busi.entity.SysMenu">
-        <id column="id" property="id" />
-        <result column="parent_id" property="parentId" />
-        <result column="type" property="type" />
-        <result column="name" property="name" />
-        <result column="sort" property="sort" />
-        <result column="href" property="href" />
-        <result column="icon" property="icon" />
-        <result column="permission" property="permission" />
-        <result column="disabled" property="disabled" />
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <result column="sort" property="sort"/>
+        <result column="href" property="href"/>
+        <result column="icon" property="icon"/>
+        <result column="permission" property="permission"/>
+        <result column="disabled" property="disabled"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -31,10 +31,10 @@
         a.permission as "permission",
         a.href as "href"
         FROM
-        sys_menu a left join  sys_role_menu b on a.id=b.menu_id
-        left join  sys_role c      on c.id=b.role_id
-        left join  sys_user_role d on c.id=d.role_id
-        left join  sys_user e      on e.id=d.user_id
+        sys_menu a left join sys_role_menu b on a.id=b.menu_id
+        left join sys_role c on c.id=b.role_id
+        left join sys_user_role d on c.id=d.role_id
+        left join sys_user e on e.id=d.user_id
         WHERE
         a.type!='2' and c.disabled='0' and e.disabled='0' and e.id=#{userId}
         ORDER BY
@@ -43,15 +43,15 @@
 
     <select id="getPermissionMenuList" resultType="string">
         SELECT
-          DISTINCT
-          a.permission as "permission"
+        DISTINCT
+        a.permission as "permission"
         FROM
-        sys_menu a left join  sys_role_menu b on a.id=b.menu_id
-        left join  sys_role c      on c.id=b.role_id
-        left join  sys_user_role d on c.id=d.role_id
-        left join  sys_user e      on e.id=d.user_id
+        sys_menu a left join sys_role_menu b on a.id=b.menu_id
+        left join sys_role c on c.id=b.role_id
+        left join sys_user_role d on c.id=d.role_id
+        left join sys_user e on e.id=d.user_id
         WHERE
-          a.type='2' and c.disabled='0' and e.disabled='0' and e.id=#{userId}
+        a.type='2' and c.disabled='0' and e.disabled='0' and e.id=#{userId}
         ORDER BY
         a.sort ASC
     </select>

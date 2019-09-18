@@ -31,7 +31,7 @@ public class CryptoUtils {
     private static final int DEFAULT_AES_KEYSIZE = 128;
     private static final int DEFAULT_IVSIZE = 16;
 
-    private static final byte[] DEFAULT_KEY = new byte[]{-97,88,-94,9,70,-76,126,25,0,3,-20,113,108,28,69,125};
+    private static final byte[] DEFAULT_KEY = new byte[]{-97, 88, -94, 9, 70, -76, 126, 25, 0, 3, -20, 113, 108, 28, 69, 125};
 
     private static SecureRandom random = new SecureRandom();
 
@@ -48,11 +48,12 @@ public class CryptoUtils {
     }
 
     //-- HMAC-SHA1 funciton --//
+
     /**
      * 使用HMAC-SHA1进行消息签名, 返回字节数组,长度为20字节.
      *
      * @param input 原始输入字符数组
-     * @param key HMAC-SHA1密钥
+     * @param key   HMAC-SHA1密钥
      */
     public static byte[] hmacSha1(byte[] input, byte[] key) {
         try {
@@ -69,8 +70,8 @@ public class CryptoUtils {
      * 校验HMAC-SHA1签名是否正确.
      *
      * @param expected 已存在的签名
-     * @param input 原始输入字符串
-     * @param key 密钥
+     * @param input    原始输入字符串
+     * @param key      密钥
      */
     public static boolean isMacValid(byte[] expected, byte[] input, byte[] key) {
         byte[] actual = hmacSha1(input, key);
@@ -111,7 +112,7 @@ public class CryptoUtils {
      * 使用AES加密原始字符串.
      *
      * @param input 原始输入字符数组
-     * @param key 符合AES要求的密钥
+     * @param key   符合AES要求的密钥
      */
     public static String aesEncrypt(String input, String key) {
         try {
@@ -125,7 +126,7 @@ public class CryptoUtils {
      * 使用AES加密原始字符串.
      *
      * @param input 原始输入字符数组
-     * @param key 符合AES要求的密钥
+     * @param key   符合AES要求的密钥
      */
     public static byte[] aesEncrypt(byte[] input, byte[] key) {
         return aes(input, key, Cipher.ENCRYPT_MODE);
@@ -135,8 +136,8 @@ public class CryptoUtils {
      * 使用AES加密原始字符串.
      *
      * @param input 原始输入字符数组
-     * @param key 符合AES要求的密钥
-     * @param iv 初始向量
+     * @param key   符合AES要求的密钥
+     * @param iv    初始向量
      */
     public static byte[] aesEncrypt(byte[] input, byte[] key, byte[] iv) {
         return aes(input, key, iv, Cipher.ENCRYPT_MODE);
@@ -159,7 +160,7 @@ public class CryptoUtils {
      * 使用AES解密字符串, 返回原始字符串.
      *
      * @param input Hex编码的加密字符串
-     * @param key 符合AES要求的密钥
+     * @param key   符合AES要求的密钥
      */
     public static String aesDecrypt(String input, String key) {
         try {
@@ -173,7 +174,7 @@ public class CryptoUtils {
      * 使用AES解密字符串, 返回原始字符串.
      *
      * @param input Hex编码的加密字符串
-     * @param key 符合AES要求的密钥
+     * @param key   符合AES要求的密钥
      */
     public static byte[] aesDecrypt(byte[] input, byte[] key) {
         return aes(input, key, Cipher.DECRYPT_MODE);
@@ -183,8 +184,8 @@ public class CryptoUtils {
      * 使用AES解密字符串, 返回原始字符串.
      *
      * @param input Hex编码的加密字符串
-     * @param key 符合AES要求的密钥
-     * @param iv 初始向量
+     * @param key   符合AES要求的密钥
+     * @param iv    初始向量
      */
     public static byte[] aesDecrypt(byte[] input, byte[] key, byte[] iv) {
         return aes(input, key, iv, Cipher.DECRYPT_MODE);
@@ -194,8 +195,8 @@ public class CryptoUtils {
      * 使用AES加密或解密无编码的原始字节数组, 返回无编码的字节数组结果.
      *
      * @param input 原始字节数组
-     * @param key 符合AES要求的密钥
-     * @param mode Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
+     * @param key   符合AES要求的密钥
+     * @param mode  Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
      */
     private static byte[] aes(byte[] input, byte[] key, int mode) {
         try {
@@ -212,9 +213,9 @@ public class CryptoUtils {
      * 使用AES加密或解密无编码的原始字节数组, 返回无编码的字节数组结果.
      *
      * @param input 原始字节数组
-     * @param key 符合AES要求的密钥
-     * @param iv 初始向量
-     * @param mode Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
+     * @param key   符合AES要求的密钥
+     * @param iv    初始向量
+     * @param mode  Cipher.ENCRYPT_MODE 或 Cipher.DECRYPT_MODE
      */
     private static byte[] aes(byte[] input, byte[] key, byte[] iv, int mode) {
         try {
@@ -267,6 +268,7 @@ public class CryptoUtils {
 
     /**
      * 生成安全的密码,先用md5加密，再用sha256加密
+     *
      * @param plainPassword 明文密码
      */
     public static String encryptPassword(String plainPassword) {
@@ -278,7 +280,8 @@ public class CryptoUtils {
 
     /**
      * 验证密码
-     * @param plainPassword 明文密码
+     *
+     * @param plainPassword   明文密码
      * @param encryptPassword 密文密码
      * @return 验证成功返回true
      */
@@ -310,6 +313,7 @@ public class CryptoUtils {
             throw new RuntimeException(e);
         }
     }
+
     private static String getFormattedText(byte[] bytes) {
         int len = bytes.length;
         StringBuilder buf = new StringBuilder(len * 2);
@@ -320,9 +324,8 @@ public class CryptoUtils {
         return buf.toString();
     }
 
-    private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 
 }

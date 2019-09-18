@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zhoushengyuan
@@ -17,7 +17,7 @@ import java.util.Map;
 public interface ColumnMapper extends BaseMapper<Column> {
 
 
-    List<Map<String,Object>> selectColumnMaps();
+    List<Map<String, Object>> selectColumnMaps();
 
 
     List<Column> selectChildrenList();

@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zhoushengyuan
@@ -30,7 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @RequestMapping("/sys/dict")
 @ApiIgnore
-@Api(value = "SysDictController",description = "系统字典相关api")
+@Api(value = "SysDictController", description = "系统字典相关api")
 public class SysDictController extends BaseController<SysDictService, SysDict> {
 
 
@@ -39,10 +39,9 @@ public class SysDictController extends BaseController<SysDictService, SysDict> {
     }
 
 
-   /**
-    *
-    * 页面跳转
-    */
+    /**
+     * 页面跳转
+     */
     @GetMapping("list")
     @RequiresPermissions("sys:dict:view")
     public String listView() {
@@ -50,99 +49,110 @@ public class SysDictController extends BaseController<SysDictService, SysDict> {
     }
 
     /**
-    * 分页查询列表
-    * @param sysDict
-    * @param pageNum
-    * @param pageSize
-    * @return
-    */
+     * 分页查询列表
+     *
+     * @param sysDict
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("listData")
-    @ApiOperation(value = "字典列表",notes = "查询系统字典列表",httpMethod = "GET")
+    @ApiOperation(value = "字典列表", notes = "查询系统字典列表", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysDict", value = "系统字典详细信息",required = true, paramType = "query", dataType = "SysDict"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataType = "Integer")
+            @ApiImplicitParam(name = "sysDict", value = "系统字典详细信息", required = true, paramType = "query", dataType = "SysDict"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, paramType = "query", dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, paramType = "query", dataType = "Integer")
     })
     public @ResponseBody
     R listData(SysDict sysDict, Integer pageNum, Integer pageSize) {
-        QueryWrapper wrapper=new QueryWrapper<SysDict>()
-                .eq(StringUtils.isNotEmpty(sysDict.getType()),"type",sysDict.getType());
-        return super.listData(wrapper,pageNum,pageSize);
+        QueryWrapper wrapper = new QueryWrapper<SysDict>()
+                .eq(StringUtils.isNotEmpty(sysDict.getType()), "type", sysDict.getType());
+        return super.listData(wrapper, pageNum, pageSize);
     }
 
     /**
-    * 新增
-    * @param sysDict
-    * @return
-    */
+     * 新增
+     *
+     * @param sysDict
+     * @return
+     */
     @Log(value = "新增字典")
     @PostMapping("save")
     @RequiresPermissions("sys:dict:save")
-    public @ResponseBody R save(SysDict sysDict) {
+    public @ResponseBody
+    R save(SysDict sysDict) {
         beanValidator(sysDict);
         JedisUtils.del(GlobalConsts.CACHE_DICT_MAP);
         return super.save(sysDict);
     }
 
     /**
-    * 更新
-    * @return
-    */
+     * 更新
+     *
+     * @return
+     */
     @Log(value = "更新字典")
     @PostMapping("update")
     @RequiresPermissions("sys:dict:update")
-    public @ResponseBody R update(SysDict sysDict) {
+    public @ResponseBody
+    R update(SysDict sysDict) {
         beanValidator(sysDict);
-        JedisUtils.del(GlobalConsts.CACHE_DICT_MAP);
         return super.update(sysDict);
     }
 
     /**
-    * 删除
-    * @param id
-    * @return
-    */
+     * 删除
+     *
+     * @param id
+     * @return
+     */
     @PostMapping(value = {"remove/{id}"})
     @RequiresPermissions("sys:dict:remove")
-    @ApiOperation(value = "删除字典",notes = "根据字典id删除字典信息",httpMethod = "POST")
-    @ApiImplicitParam(name = "id", value = "字典id",required = true, dataType = "String")
-    public @ResponseBody R remove(@PathVariable("id") String id) {
-     return super.remove(id);
+    @ApiOperation(value = "删除字典", notes = "根据字典id删除字典信息", httpMethod = "POST")
+    @ApiImplicitParam(name = "id", value = "字典id", required = true, dataType = "String")
+    public @ResponseBody
+    R remove(@PathVariable("id") String id) {
+        return super.remove(id);
     }
 
 
     /**
-    * 根据id获取
-    * @param id
-    * @return
-    */
+     * 根据id获取
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(value = {"get/{id}"})
     @RequiresPermissions("sys:dict:update")
-    @ApiOperation(value = "获取字典",notes = "根据字典id获取字典信息",httpMethod = "GET")
-    @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "String")
-    public @ResponseBody R get(@PathVariable("id")  String id) {
+    @ApiOperation(value = "获取字典", notes = "根据字典id获取字典信息", httpMethod = "GET")
+    @ApiImplicitParam(name = "id", value = "角色id", required = true, dataType = "String")
+    public @ResponseBody
+    R get(@PathVariable("id") String id) {
         return super.get(id);
     }
 
     /**
      * Ajax权限检验
+     *
      * @return
      */
     @GetMapping("checkPermission")
-    @RequiresPermissions(value = { "sys:menu:save", "sys:menu:update"}, logical = Logical.OR)
-    public @ResponseBody R checkPermission() {
+    @RequiresPermissions(value = {"sys:menu:save", "sys:menu:update"}, logical = Logical.OR)
+    public @ResponseBody
+    R checkPermission() {
         return R.ok();
     }
 
 
     /**
      * 根据字典类型获取字典
+     *
      * @return
      */
     @ResponseBody
     @RequestMapping(value = {"getDictList"})
-    @ApiOperation(value = "获取字典",notes = "根据字典类型获取字典信息",httpMethod = "GET")
-    @ApiImplicitParam(name = "type", value = "字典类型",required = true, dataType = "String")
+    @ApiOperation(value = "获取字典", notes = "根据字典类型获取字典信息", httpMethod = "GET")
+    @ApiImplicitParam(name = "type", value = "字典类型", required = true, dataType = "String")
     public R getDictList(String type) {
         return R.ok(baseService.groupingByList(type));
     }

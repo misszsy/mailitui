@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -79,6 +79,7 @@ public class SysLog extends BaseModel {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public String getType() {
         return type;
     }
@@ -86,6 +87,7 @@ public class SysLog extends BaseModel {
     public void setType(String type) {
         this.type = type;
     }
+
     public String getOperation() {
         return operation;
     }
@@ -93,6 +95,7 @@ public class SysLog extends BaseModel {
     public void setOperation(String operation) {
         this.operation = operation;
     }
+
     public String getRequestUrl() {
         return requestUrl;
     }
@@ -100,6 +103,7 @@ public class SysLog extends BaseModel {
     public void setRequestUrl(String requestUrl) {
         this.requestUrl = requestUrl;
     }
+
     public String getRequestIp() {
         return requestIp;
     }
@@ -107,6 +111,7 @@ public class SysLog extends BaseModel {
     public void setRequestIp(String requestIp) {
         this.requestIp = requestIp;
     }
+
     public String getEquipMent() {
         return equipMent;
     }
@@ -114,6 +119,7 @@ public class SysLog extends BaseModel {
     public void setEquipMent(String equipMent) {
         this.equipMent = equipMent;
     }
+
     public String getBrowser() {
         return browser;
     }
@@ -157,17 +163,17 @@ public class SysLog extends BaseModel {
     @Override
     public String toString() {
         return "SysLog{" +
-        "userId=" + userId +
-        ", type=" + type +
-        ", operation=" + operation +
-        ", method=" + method +
-        ", requestUrl=" + requestUrl +
-        ", requestIp=" + requestIp +
-        ", equipMent=" + equipMent +
-        ", operationSystem=" + operationSystem +
-        ", browser=" + browser +
-        ", respDate=" + respTime +
-        ", createDate=" + createDate +
-        "}";
+                "userId=" + userId +
+                ", type=" + type +
+                ", operation=" + operation +
+                ", method=" + method +
+                ", requestUrl=" + requestUrl +
+                ", requestIp=" + requestIp +
+                ", equipMent=" + equipMent +
+                ", operationSystem=" + operationSystem +
+                ", browser=" + browser +
+                ", respDate=" + respTime +
+                ", createDate=" + createDate +
+                "}";
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -36,7 +36,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     private String permission;
 
     @TableLogic
-    @JSONField(serialize=false)
+    @JSONField(serialize = false)
     private String disabled;
 
     @TableField(exist = false)
@@ -58,6 +58,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
+
     public String getName() {
         return name;
     }
@@ -65,6 +66,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     public void setName(String name) {
         this.name = name;
     }
+
     public Integer getSort() {
         return sort;
     }
@@ -72,6 +74,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
     public String getHref() {
         return href;
     }
@@ -79,6 +82,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     public void setHref(String href) {
         this.href = href;
     }
+
     public String getIcon() {
         return icon;
     }
@@ -86,6 +90,7 @@ public class SysMenu extends BaseModel<SysMenu> {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
     public String getDisabled() {
         return disabled;
     }

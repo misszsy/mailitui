@@ -23,28 +23,29 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录Controller
+ *
  * @author bone
  * @version 2017-07-27
  */
 @Controller
 @ApiIgnore
-@Api(value = "LoginController",description = "系统登录相关api")
+@Api(value = "LoginController", description = "系统登录相关api")
 public class LoginController {
 
-	/**
-	 * 日志对象
-	 */
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+    /**
+     * 日志对象
+     */
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
 
-	/**
-	 * 前后端分离，跳转到前端的主页
-	 */
-	@GetMapping("/index")
+    /**
+     * 前后端分离，跳转到前端的主页
+     */
+    @GetMapping("/index")
     @RequiresPermissions("user")
-	public String index() {
-		return "index";
-	}
+    public String index() {
+        return "index";
+    }
 
 
     /**
@@ -59,12 +60,12 @@ public class LoginController {
      * 管理登录
      */
     @GetMapping(value = "/login")
-    public String loginPage( ) {
+    public String loginPage() {
         Principal principal = UserUtils.getPrincipal();
 
         //获取用户信息
-        if(principal != null){
-            return "redirect:"+"/index";
+        if (principal != null) {
+            return "redirect:" + "/index";
         }
         return "login";
     }
@@ -73,16 +74,17 @@ public class LoginController {
      * 登录失败，真正登录的POST请求由Filter完成
      */
     @PostMapping(value = "/login")
-    @ApiOperation(value = "系统登录",notes = "根据用户名和密码登录",httpMethod = "POST")
+    @ApiOperation(value = "系统登录", notes = "根据用户名和密码登录", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名称",required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "登录密码",required = true, dataType = "String")
+            @ApiImplicitParam(name = "username", value = "用户名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "登录密码", required = true, dataType = "String")
     })
-    public @ResponseBody R loginHandle(HttpServletRequest request) {
+    public @ResponseBody
+    R loginHandle(HttpServletRequest request) {
         Object user = CommonUtils.getPrincipal();
 
         //获取用户信息
-        if(user != null){
+        if (user != null) {
             return R.ok();
         }
         String message = (String) request.getAttribute("message");

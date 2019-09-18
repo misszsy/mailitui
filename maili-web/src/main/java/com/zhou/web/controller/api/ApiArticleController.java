@@ -21,17 +21,17 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zhoushengyuan
  * @since 2018-12-24
  */
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1")
-@Api(value = "ApiArticleController",description = "文章相关api")
-public class ApiArticleController{
+@Api(value = "ApiArticleController", description = "文章相关api")
+public class ApiArticleController {
 
 
     @Autowired
@@ -41,102 +41,106 @@ public class ApiArticleController{
 
     /**
      * 根据文章类型获取新闻列表
+     *
      * @param typeId
      * @param pageNum
      * @param pageSize
      * @return
      */
     @GetMapping(value = "article/{typeId}/{pageNum}/{pageSize}/getNewsList")
-    @ApiOperation(value = "新闻列表",notes = "根据文章类型获取新闻列表",response = Article.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "新闻列表", notes = "根据文章类型获取新闻列表", response = Article.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "typeId", value = "文章类型",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
+            @ApiImplicitParam(name = "typeId", value = "文章类型", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, paramType = "query", dataTypeClass = Long.class)
     })
-    public R getNewsList(@PathVariable String typeId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
-        Article article=new Article();
+    public R getNewsList(@PathVariable String typeId, @PathVariable Long pageNum, @PathVariable Long pageSize, @RequestParam(required = false) String keyword) {
+        Article article = new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId("3");
         article.setTypeId(typeId);
         article.setKeyword(keyword);
-        IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
+        IPage page = articleService.pageMaps(new Page<>(pageNum, pageSize), new QueryWrapper<>(article));
         return R.ok(page);
     }
 
 
     /**
      * 根据栏目id获取文章列表
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
     @GetMapping(value = "article/{columnId}/{pageNum}/{pageSize}/list")
-    @ApiOperation(value = "文章列表",notes = "根据栏目id获取文章列表",response = Article.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "文章列表", notes = "根据栏目id获取文章列表", response = Article.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
+            @ApiImplicitParam(name = "columnId", value = "栏目id", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, paramType = "query", dataTypeClass = Long.class)
     })
-    public R list(@PathVariable String columnId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
-        Article article=new Article();
+    public R list(@PathVariable String columnId, @PathVariable Long pageNum, @PathVariable Long pageSize, @RequestParam(required = false) String keyword) {
+        Article article = new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId(columnId);
         article.setKeyword(keyword);
-        IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
+        IPage page = articleService.pageMaps(new Page<>(pageNum, pageSize), new QueryWrapper<>(article));
         return R.ok(page);
     }
 
     /**
      * 根据文章类型获取案例列表
+     *
      * @param typeId
      * @param pageNum
      * @param pageSize
      * @return
      */
     @GetMapping(value = "article/{typeId}/{pageNum}/{pageSize}/getCaseList")
-    @ApiOperation(value = "案例列表",notes = "根据文章类型获取案例列表",response = Article.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "案例列表", notes = "根据文章类型获取案例列表", response = Article.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "typeId", value = "文章类型",required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "keyword", value = "关键字",paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "当前页码",required = true, paramType = "query", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "pageSize", value = "显示条数",required = true, paramType = "query", dataTypeClass =Long.class)
+            @ApiImplicitParam(name = "typeId", value = "文章类型", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "keyword", value = "关键字", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, paramType = "query", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, paramType = "query", dataTypeClass = Long.class)
     })
-    public R getCaseList(@PathVariable String typeId,@PathVariable Long pageNum,@PathVariable Long pageSize,@RequestParam(required = false) String keyword){
-        Article article=new Article();
+    public R getCaseList(@PathVariable String typeId, @PathVariable Long pageNum, @PathVariable Long pageSize, @RequestParam(required = false) String keyword) {
+        Article article = new Article();
         article.setStatus(GlobalConsts.TURE);
         article.setColumnId("4");
         article.setKeyword(keyword);
         article.setTypeId(typeId);
-        IPage page= articleService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
+        IPage page = articleService.pageMaps(new Page<>(pageNum, pageSize), new QueryWrapper<>(article));
         return R.ok(page);
     }
 
 
     /**
      * 根据文章id获取文章详情
+     *
      * @param id
      * @return
      */
     @GetMapping(value = "article/{id}/get")
-    @ApiOperation(value = "文章详情",notes = "根据文章id获取文章详情",response = Map.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "文章详情", notes = "根据文章id获取文章详情", response = Map.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
-    @ApiImplicitParam(name = "id", value = "文章id",required = true, paramType = "query", dataType = "String")
-    public R get(@PathVariable String id){
-        Map<String,Object> articleMap= articleService.getMap(new QueryWrapper<Article>().setEntity(new Article(id)));
-        if(MapUtils.getLong(articleMap,"previous")==null){
-            articleMap.put("previous",0);
+    @ApiImplicitParam(name = "id", value = "文章id", required = true, paramType = "query", dataType = "String")
+    public R get(@PathVariable String id) {
+        Map<String, Object> articleMap = articleService.getMap(new QueryWrapper<Article>().setEntity(new Article(id)));
+        if (MapUtils.getLong(articleMap, "previous") == null) {
+            articleMap.put("previous", 0);
         }
-        if(MapUtils.getLong(articleMap,"next")==null){
-            articleMap.put("next",0);
+        if (MapUtils.getLong(articleMap, "next") == null) {
+            articleMap.put("next", 0);
         }
         return R.ok(articleMap);
     }
@@ -144,39 +148,40 @@ public class ApiArticleController{
 
     /**
      * 获取新闻资讯的推荐列表
+     *
      * @return
      */
     @GetMapping(value = "article/recommendList")
-    @ApiOperation(value = "推荐列表",notes = "获取新闻资讯的推荐列表",response = Article.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "推荐列表", notes = "获取新闻资讯的推荐列表", response = Article.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
-    public R recommendList(){
-        List<Article> recommendList=articleService.list(new QueryWrapper<Article>().lambda()
-                                    .eq(Article::getDisabled,"0")
-                                    .eq(Article::getStatus,"1")
-                                    .eq(Article::getRecommend,"1")
-                                    .eq(Article::getColumnId,"3")
-                                    .orderByDesc(Article::getPublishDate)
-                                    .last("limit 5"));
+    public R recommendList() {
+        List<Article> recommendList = articleService.list(new QueryWrapper<Article>().lambda()
+                .eq(Article::getDisabled, "0")
+                .eq(Article::getStatus, "1")
+                .eq(Article::getRecommend, "1")
+                .eq(Article::getColumnId, "3")
+                .orderByDesc(Article::getPublishDate)
+                .last("limit 5"));
         return R.ok(recommendList);
     }
 
 
-
     /**
      * 获取相关内容的文章列表
+     *
      * @return
      */
     @PostMapping(value = "article/relationList")
-    @ApiOperation(value = "相关内容",notes = "获取相关内容的文章列表",response = Article.class,httpMethod = "GET")
-    @ApiResponses({ @ApiResponse(code = 200, message = "操作成功"),
+    @ApiOperation(value = "相关内容", notes = "获取相关内容的文章列表", response = Article.class, httpMethod = "GET")
+    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
             @ApiResponse(code = 400, message = "请求错误")})
-    @ApiImplicitParam(name = "keyword", value = "关键字Keyword",required = true, paramType = "query", dataType = "String")
-    public R relationList(String keyword){
-        List<Article> relationList=new ArrayList<>();
-        if(StringUtils.isNotEmpty(keyword)){
-            String[] keywords=keyword.split(",");
-            relationList=articleService.selectLikeMaps(Arrays.asList(keywords));
+    @ApiImplicitParam(name = "keyword", value = "关键字Keyword", required = true, paramType = "query", dataType = "String")
+    public R relationList(String keyword) {
+        List<Article> relationList = new ArrayList<>();
+        if (StringUtils.isNotEmpty(keyword)) {
+            String[] keywords = keyword.split(",");
+            relationList = articleService.selectLikeMaps(Arrays.asList(keywords));
         }
         return R.ok(relationList);
     }
@@ -184,12 +189,13 @@ public class ApiArticleController{
 
     /**
      * 根据字典类型获取字典
+     *
      * @return
      */
     @ResponseBody
     @GetMapping(value = {"article/getDictList"})
-    @ApiOperation(value = "获取栏目",notes = "根据栏目id获取栏目信息",httpMethod = "GET")
-    @ApiImplicitParam(name = "columnId", value = "栏目id",required = true, dataType = "String")
+    @ApiOperation(value = "获取栏目", notes = "根据栏目id获取栏目信息", httpMethod = "GET")
+    @ApiImplicitParam(name = "columnId", value = "栏目id", required = true, dataType = "String")
     public R getDictList(String columnId) {
         return R.ok(columnService.groupingByList(columnId));
     }

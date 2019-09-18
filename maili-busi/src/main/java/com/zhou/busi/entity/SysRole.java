@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -48,6 +48,7 @@ public class SysRole extends BaseModel {
     public void setCode(String code) {
         this.code = code;
     }
+
     public String getName() {
         return name;
     }
@@ -55,6 +56,7 @@ public class SysRole extends BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDisabled() {
         return disabled;
     }
@@ -62,6 +64,7 @@ public class SysRole extends BaseModel {
     public void setDisabled(String disabled) {
         this.disabled = disabled;
     }
+
     public String getMenuIds() {
         return menuIds;
     }
@@ -81,10 +84,10 @@ public class SysRole extends BaseModel {
     @Override
     public String toString() {
         return "SysRole{" +
-        "code=" + code +
-        ", name=" + name +
-        ", disabled=" + disabled +
-        ", menuIds=" + menuIds +
-        "}";
+                "code=" + code +
+                ", name=" + name +
+                ", disabled=" + disabled +
+                ", menuIds=" + menuIds +
+                "}";
     }
 }

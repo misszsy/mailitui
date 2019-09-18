@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -29,21 +29,22 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     /**
      * 字典分类管理
+     *
      * @return
      */
     @Override
     public List<SysDict> groupingByList(String type) {
         Map<String, List<SysDict>> dictMap = (Map<String, List<SysDict>>) JedisUtils.getObject(GlobalConsts.CACHE_DICT_MAP);
-        if(MapUtils.isEmpty(dictMap)){
-            List<SysDict> dictList= super.list(new QueryWrapper<>());
+        if (MapUtils.isEmpty(dictMap)) {
+            List<SysDict> dictList = super.list(new QueryWrapper<>());
 
-            dictMap=dictList.stream().collect(Collectors.groupingBy(SysDict::getType));
+            dictMap = dictList.stream().collect(Collectors.groupingBy(SysDict::getType));
 
-            JedisUtils.setObject(GlobalConsts.CACHE_DICT_MAP,dictMap,0);
+            JedisUtils.setObject(GlobalConsts.CACHE_DICT_MAP, dictMap, 0);
         }
         List<SysDict> dictList = dictMap.get(type);
-        if (CollectionUtils.isEmpty(dictList)){
-            dictList =new ArrayList<>();
+        if (CollectionUtils.isEmpty(dictList)) {
+            dictList = new ArrayList<>();
         }
         return dictList;
     }

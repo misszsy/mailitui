@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -43,9 +43,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public boolean save(SysRole sysRole) {
         super.save(sysRole);
 
-        List<SysRoleMenu> sysRoleMenuList=formmatSysRoleMenuList(sysRole.getMenuList(),sysRole.getId());
+        List<SysRoleMenu> sysRoleMenuList = formmatSysRoleMenuList(sysRole.getMenuList(), sysRole.getId());
 
-        if(CollectionUtils.isNotEmpty(sysRoleMenuList)){
+        if (CollectionUtils.isNotEmpty(sysRoleMenuList)) {
             sysRoleMenuService.saveBatch(sysRoleMenuList);
         }
         UserUtils.removeCache(UserUtils.CACHE_ROLE_LIST);
@@ -56,20 +56,21 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     /**
      * 更新角色
+     *
      * @param sysRole
      */
     @Transactional
     @Override
-    public boolean updateById(SysRole sysRole){
+    public boolean updateById(SysRole sysRole) {
         baseMapper.updateById(sysRole);
 
-        List<SysRoleMenu> sysRoleMenuList=formmatSysRoleMenuList(sysRole.getMenuList(),sysRole.getId());
+        List<SysRoleMenu> sysRoleMenuList = formmatSysRoleMenuList(sysRole.getMenuList(), sysRole.getId());
 
-        if(CollectionUtils.isNotEmpty(sysRoleMenuList)){
+        if (CollectionUtils.isNotEmpty(sysRoleMenuList)) {
 
             sysRoleMenuService.remove(new QueryWrapper<SysRoleMenu>()
                     .lambda()
-                    .eq(SysRoleMenu::getRoleId,sysRole.getId()));
+                    .eq(SysRoleMenu::getRoleId, sysRole.getId()));
 
             sysRoleMenuService.saveBatch(sysRoleMenuList);
         }
@@ -78,9 +79,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
 
-
     /**
      * 获取角色用户的菜单集合
+     *
      * @param menuList
      * @param roleId
      * @return
@@ -88,10 +89,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private List<SysRoleMenu> formmatSysRoleMenuList(List<String> menuList, String roleId) {
         List<SysRoleMenu> sysRoleMenuList = new ArrayList<>();
 
-        if(menuList!= null && !menuList.isEmpty()) {
+        if (menuList != null && !menuList.isEmpty()) {
             for (String MenuId : menuList) {
                 //角色菜单关系
-                if(StringUtils.isNotEmpty(MenuId)){
+                if (StringUtils.isNotEmpty(MenuId)) {
                     SysRoleMenu sysRoleMenu = new SysRoleMenu();
                     sysRoleMenu.setRoleId(roleId);
                     sysRoleMenu.setMenuId(MenuId);

@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zhoushengyuan
@@ -28,7 +28,7 @@ import java.util.Map;
 @ApiIgnore
 @Controller
 @RequestMapping("/column")
-public class ColumnController extends BaseController<ColumnService,Column> {
+public class ColumnController extends BaseController<ColumnService, Column> {
 
 
     public String getViewPath() {
@@ -36,10 +36,9 @@ public class ColumnController extends BaseController<ColumnService,Column> {
     }
 
 
-   /**
-    *
-    * 页面跳转
-    */
+    /**
+     * 页面跳转
+     */
     @GetMapping("list")
     @RequiresPermissions("sys:column:view")
     public String listView() {
@@ -49,89 +48,103 @@ public class ColumnController extends BaseController<ColumnService,Column> {
 
     /**
      * 获取菜单栏目
+     *
      * @return
      */
     @GetMapping("getColumnTree")
-    public @ResponseBody R getAuthMenuTree() {
+    public @ResponseBody
+    R getAuthMenuTree() {
         return R.ok(baseService.list(new QueryWrapper<Column>().lambda().orderByDesc(Column::getSort)));
     }
 
 
     /**
-    * 分页查询列表
-    * @param column
-    * @param pageNum
-    * @param pageSize
-    * @return
-    */
+     * 分页查询列表
+     *
+     * @param column
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = {"listData"})
-    public @ResponseBody R listData(Column column, Integer pageNum, Integer pageSize) {
-        QueryWrapper wrapper=new QueryWrapper<Column>();
+    public @ResponseBody
+    R listData(Column column, Integer pageNum, Integer pageSize) {
+        QueryWrapper wrapper = new QueryWrapper<Column>();
         return super.listData(wrapper, pageNum, pageSize);
     }
 
     /**
-    * 新增
-    * @param column
-    * @return
-    */
+     * 新增
+     *
+     * @param column
+     * @return
+     */
     @Log(value = "新增")
     @PostMapping("save")
     @RequiresPermissions("sys:column:save")
-    public @ResponseBody R save(Column column) {
+    public @ResponseBody
+    R save(Column column) {
         beanValidator(column);
         return super.save(column);
     }
 
     /**
-    * 更新
-    * @return
-    */
+     * 更新
+     *
+     * @return
+     */
     @Log(value = "更新")
     @PostMapping("update")
     @RequiresPermissions("sys:column:update")
-    public @ResponseBody R update(Column column) {
+    public @ResponseBody
+    R update(Column column) {
         JedisUtils.del(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP);
         beanValidator(column);
         return super.update(column);
     }
 
     /**
-    * 删除
-    * @param id
-    * @return
-    */
+     * 删除
+     *
+     * @param id
+     * @return
+     */
     @Log(value = "删除")
     @PostMapping("remove/{id}")
     @RequiresPermissions("sys:column:remove")
-    public @ResponseBody R remove(@PathVariable String id) {
-     return super.remove(id);
+    public @ResponseBody
+    R remove(@PathVariable String id) {
+        return super.remove(id);
     }
 
 
     /**
      * 根据id获取
+     *
      * @param id
      * @return
      */
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:column:update")
-    public @ResponseBody R get(@PathVariable  String id) {
+    public @ResponseBody
+    R get(@PathVariable String id) {
         return super.get(id);
     }
 
 
     /**
      * 根据ids获取
+     *
      * @return
      */
     @GetMapping("getColumnList")
-    public @ResponseBody R getColumnList() {
+    public @ResponseBody
+    R getColumnList() {
         JedisUtils.del(GlobalConsts.CACHE_COLUMN_MAP);
-        List<Map<String,Object>> columnList= (List<Map<String,Object>>)JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
-        if(CollectionUtils.isEmpty(columnList)){
-            columnList=baseService.listMaps(new QueryWrapper<>());
-            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_MAP,columnList,0);
+        List<Map<String, Object>> columnList = (List<Map<String, Object>>) JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_MAP);
+        if (CollectionUtils.isEmpty(columnList)) {
+            columnList = baseService.listMaps(new QueryWrapper<>());
+            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_MAP, columnList, 0);
         }
         return R.ok(columnList);
     }

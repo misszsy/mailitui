@@ -19,46 +19,46 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class FileUtils extends org.apache.commons.io.FileUtils{
+public class FileUtils extends org.apache.commons.io.FileUtils {
 
     private static Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-    public static void removeFile(String filePath){
+    public static void removeFile(String filePath) {
         File file = new File(filePath);
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
     }
 
-    public static Map<String,Object> remoteImage(String source, String folder) {
+    public static Map<String, Object> remoteImage(String source, String folder) {
         try {
-            Map<String,Object> map=new HashMap<>();
-            String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH+ folder;
-            String fileName =IdUtils.nextId()+".jpg";
+            Map<String, Object> map = new HashMap<>();
+            String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH + folder;
+            String fileName = IdUtils.nextId() + ".jpg";
             URL url = new URL(source);
-            map.put("fileName",fileName);
-            map.put("src", "http://192.168.50.194"+folder+fileName);
-            readInputStream(url,new File(filePath+fileName));
+            map.put("fileName", fileName);
+            map.put("src", "http://192.168.50.194" + folder + fileName);
+            readInputStream(url, new File(filePath + fileName));
             return map;
-        }catch (Exception e){
-            logger.error("保存远程图片失败",e);
+        } catch (Exception e) {
+            logger.error("保存远程图片失败", e);
         }
-       return null;
+        return null;
     }
 
 
-    public static List<JSONObject> remoteImage(String[] sources, String folder) throws Exception{
-        if(CollectionUtils.isNotEmpty(Arrays.asList(sources))){
+    public static List<JSONObject> remoteImage(String[] sources, String folder) throws Exception {
+        if (CollectionUtils.isNotEmpty(Arrays.asList(sources))) {
             List<JSONObject> list = new ArrayList<JSONObject>();
-            String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH+ folder;
-            for (String source:sources) {
-                JSONObject jsonObject=new JSONObject();
+            String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH + folder;
+            for (String source : sources) {
+                JSONObject jsonObject = new JSONObject();
                 URL url = new URL(source);
-                String fileName =IdUtils.nextId()+".jpg";
-                readInputStream(url,new File(filePath+fileName));
-                jsonObject.put("source",source);
-                jsonObject.put("state","SUCCESS");
-                jsonObject.put("url", ConfigConsts.getConfig("image.ip")+folder+fileName);
+                String fileName = IdUtils.nextId() + ".jpg";
+                readInputStream(url, new File(filePath + fileName));
+                jsonObject.put("source", source);
+                jsonObject.put("state", "SUCCESS");
+                jsonObject.put("url", ConfigConsts.getConfig("image.ip") + folder + fileName);
                 list.add(jsonObject);
             }
             return list;
@@ -68,24 +68,25 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
 
     /**
      * 上传多张图片
+     *
      * @param files
      * @param folder
      * @return
      */
-    public static String uploadFile(MultipartFile[] files,String folder){
-        if(CollectionUtils.isNotEmpty(Arrays.asList(files))){
+    public static String uploadFile(MultipartFile[] files, String folder) {
+        if (CollectionUtils.isNotEmpty(Arrays.asList(files))) {
             List<String> list = new ArrayList<String>();
-            for (MultipartFile file:files) {
+            for (MultipartFile file : files) {
                 list.add(uploadFile(file, folder));
             }
-            return StringUtils.join(list,",");
+            return StringUtils.join(list, ",");
         }
         return StringUtils.EMPTY;
     }
 
 
-    public static String uploadFile(MultipartFile file,String folder){
-        String fileName =IdUtils.nextId()+".jpg";
+    public static String uploadFile(MultipartFile file, String folder) {
+        String fileName = IdUtils.nextId() + ".jpg";
         return upload(file, folder, fileName);
     }
 
@@ -93,25 +94,25 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
     /**
      * 上传文件，返回数据库存储url
      *
-     * @param file		要上传的文件
-     * @param folder	文件存的文件夹名
+     * @param file   要上传的文件
+     * @param folder 文件存的文件夹名
      * @return
      * @throws Exception
      */
-    public static String upload(MultipartFile file, String folder,String fileName){
-        String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH+ folder+fileName;
-      try {
-            CommonsMultipartFile cf= (CommonsMultipartFile) file;
+    public static String upload(MultipartFile file, String folder, String fileName) {
+        String filePath = GlobalConsts.PROJECT_FILE_ROOT_PATH + folder + fileName;
+        try {
+            CommonsMultipartFile cf = (CommonsMultipartFile) file;
             File cfile = new File(filePath);
             cf.transferTo(cfile);
         } catch (Exception e) {
-            logger.error("上传图片异常:",e);
-            throw  new BusinessException("图片上传失败,请稍后再试");
+            logger.error("上传图片异常:", e);
+            throw new BusinessException("图片上传失败,请稍后再试");
         }
-        return  folder+fileName;
+        return folder + fileName;
     }
 
-    public static void uploadFile(File cfile,String fileName,String filePath){
+    public static void uploadFile(File cfile, String fileName, String filePath) {
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {
@@ -127,12 +128,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
             throw new RuntimeException(e);
         } finally {
             try {
-                if(fis!=null)
+                if (fis != null)
                     fis.close();
             } catch (IOException e) {
             }
             try {
-                if(fos!=null)
+                if (fos != null)
                     fos.close();
             } catch (IOException e) {
             }
@@ -140,7 +141,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
     }
 
 
-  /**
+    /**
      * 获取文件后缀
      *
      * @param fileName
@@ -166,6 +167,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
 
     /**
      * 创建单个文件
+     *
      * @param descFileName 文件名，包含路径
      * @return 如果创建成功，则返回true，否则返回false
      */
@@ -206,6 +208,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
 
     /**
      * 创建目录
+     *
      * @param descDirName 目录名,包含路径
      * @return 如果创建成功，则返回true，否则返回false
      */
@@ -232,11 +235,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
 
     /**
      * 判断文件后缀
+     *
      * @param allowFiles 允许的后缀
-     * @param suffix 文件后缀
+     * @param suffix     文件后缀
      * @return
      */
-    public static boolean checkSuffix(String allowFiles,String suffix) {
+    public static boolean checkSuffix(String allowFiles, String suffix) {
         return Arrays.asList(allowFiles.split(",")).contains(getFileSuffix(suffix));
     }
 
@@ -248,42 +252,44 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
      * @param unit 限制单位（B,K,M,G）
      * @return
      */
-    public static boolean checkFileSize(MultipartFile file,int size,String unit) {
+    public static boolean checkFileSize(MultipartFile file, int size, String unit) {
         long len = file.getSize();
         double fileSize = 0;
-        if("B".equals(unit.toUpperCase())){
-            fileSize = (double)len;
-        }else if("K".equals(unit.toUpperCase())){
-            fileSize = (double)len / 1024;
-        }else if("M".equals(unit.toUpperCase())){
-            fileSize = (double)len / 1048576;
-        }else if("G".equals(unit.toUpperCase())){
-            fileSize = (double)len / 1073741824;
+        if ("B".equals(unit.toUpperCase())) {
+            fileSize = (double) len;
+        } else if ("K".equals(unit.toUpperCase())) {
+            fileSize = (double) len / 1024;
+        } else if ("M".equals(unit.toUpperCase())) {
+            fileSize = (double) len / 1048576;
+        } else if ("G".equals(unit.toUpperCase())) {
+            fileSize = (double) len / 1073741824;
         }
         return !(fileSize > size);
     }
 
     /**
      * 向浏览器发送文件下载，支持断点续传
-     * @param file 要下载的文件
-     * @param request 请求对象
+     *
+     * @param file     要下载的文件
+     * @param request  请求对象
      * @param response 响应对象
      * @return 返回错误信息，无错误信息返回null
      */
-    public static String downFile(File file, HttpServletRequest request, HttpServletResponse response){
+    public static String downFile(File file, HttpServletRequest request, HttpServletResponse response) {
         return downFile(file, request, response, null);
     }
 
     /**
      * 向浏览器发送文件下载，支持断点续传
-     * @param file 要下载的文件
-     * @param request 请求对象
+     *
+     * @param file     要下载的文件
+     * @param request  请求对象
      * @param response 响应对象
      * @param fileName 指定下载的文件名
      * @return 返回错误信息，无错误信息返回null
      */
-    public static String downFile(File file, HttpServletRequest request, HttpServletResponse response, String fileName){
-        String error  = null;
+    public static String downFile(File file, HttpServletRequest request, HttpServletResponse response, String fileName) {
+        String error = null;
         if (file != null && file.exists()) {
             if (file.isFile()) {
                 if (file.length() <= 0) {
@@ -298,21 +304,21 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
         } else {
             error = "文件已丢失或不存在！";
         }
-        if (error != null){
+        if (error != null) {
             logger.debug("---------------" + file + " " + error);
-            throw new BusinessException("下载失败,"+error);
+            throw new BusinessException("下载失败," + error);
         }
 
         long fileLength = file.length(); // 记录文件大小
-        long pastLength = 0; 	// 记录已下载文件大小
-        int rangeSwitch = 0; 	// 0：从头开始的全文下载；1：从某字节开始的下载（bytes=27000-）；2：从某字节开始到某字节结束的下载（bytes=27000-39000）
-        long toLength = 0; 		// 记录客户端需要下载的字节段的最后一个字节偏移量（比如bytes=27000-39000，则这个值是为39000）
+        long pastLength = 0;    // 记录已下载文件大小
+        int rangeSwitch = 0;    // 0：从头开始的全文下载；1：从某字节开始的下载（bytes=27000-）；2：从某字节开始到某字节结束的下载（bytes=27000-39000）
+        long toLength = 0;        // 记录客户端需要下载的字节段的最后一个字节偏移量（比如bytes=27000-39000，则这个值是为39000）
         long contentLength = 0; // 客户端请求的字节总量
         String rangeBytes = ""; // 记录客户端传来的形如“bytes=27000-”或者“bytes=27000-39000”的内容
         RandomAccessFile raf = null; // 负责读取数据
-        OutputStream os = null; 	// 写出数据
-        OutputStream out = null; 	// 缓冲
-        byte b[] = new byte[1024]; 	// 暂存容器
+        OutputStream os = null;    // 写出数据
+        OutputStream out = null;    // 缓冲
+        byte b[] = new byte[1024];    // 暂存容器
 
         if (request.getHeader("Range") != null) { // 客户端请求的下载的文件块的开始字节
             response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
@@ -365,7 +371,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
         }
 
         try {
-            response.addHeader("Content-Disposition", "attachment; filename=\"" +new String((StringUtils.isBlank(fileName) ? file.getName() : fileName).getBytes("GBK"),"ISO8859_1"));
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + new String((StringUtils.isBlank(fileName) ? file.getName() : fileName).getBytes("GBK"), "ISO8859_1"));
 
             response.setContentType(getContentType(file.getName())); // set the MIME type.
             response.addHeader("Content-Length", String.valueOf(contentLength));
@@ -440,6 +446,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
 
     /**
      * 根据“文件名的后缀”获取文件内容类型（而非根据File.getContentType()读取的文件类型）
+     *
      * @param returnFileName 带验证的文件名
      * @return 返回文件类型
      */
@@ -567,19 +574,19 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
     /**
      * 下载
      */
-    public static void downFile(HttpServletRequest request, HttpServletResponse response,String fileUrl,String fileName){
+    public static void downFile(HttpServletRequest request, HttpServletResponse response, String fileUrl, String fileName) {
         FileInputStream fos = null;
         ServletOutputStream sos = null;
         System.out.println(fileUrl);
         File file = new File(fileUrl);
 
-        try{
+        try {
             //文件名编码，解决乱码问题
             String encodedFileName = null;
             String userAgentString = request.getHeader("User-Agent");
-            String browser ="";
-            if(browser.equals("Chrome") || browser.equals("Internet Exploer") || browser.equals("Safari")) {
-                encodedFileName = URLEncoder.encode(fileName,"utf-8").replaceAll("\\+", "%20");
+            String browser = "";
+            if (browser.equals("Chrome") || browser.equals("Internet Exploer") || browser.equals("Safari")) {
+                encodedFileName = URLEncoder.encode(fileName, "utf-8").replaceAll("\\+", "%20");
             } else {
 //	            encodedFileName = MimeUtility.encodeWord(fileName);
                 encodedFileName = new String(fileName.getBytes("GBK"), "ISO8859_1");
@@ -587,33 +594,32 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
             //设置Content-Disposition响应头，一方面可以指定下载的文件名，另一方面可以引导浏览器弹出文件下载窗口
             response.setHeader("Content-Disposition", "attachment;fileName=\"" + encodedFileName + "\"");
             response.setContentType("application/octet-stream;charset=UTF-8");
-            byte b[] = new byte[1024*1024*1];//1M
+            byte b[] = new byte[1024 * 1024 * 1];//1M
             int read = 0;
             fos = new FileInputStream(file);
             sos = response.getOutputStream();
-            while((read=fos.read(b))!=-1){
-                sos.write(b,0,read);//每次写1M
+            while ((read = fos.read(b)) != -1) {
+                sos.write(b, 0, read);//每次写1M
             }
-        }catch (Exception e) {
-            logger.error(e.toString(),e);
+        } catch (Exception e) {
+            logger.error(e.toString(), e);
             throw new BusinessException("下载文件失败,请联系管理人员");
-        }finally{
+        } finally {
             try {
-                if(sos!=null){
+                if (sos != null) {
                     sos.close();
                 }
-                if(fos!=null){
+                if (fos != null) {
                     fos.close();
                 }
             } catch (IOException e) {
-                logger.error("下载文件失",e);
+                logger.error("下载文件失", e);
                 throw new BusinessException("下载文件失败,请联系管理人员");
             }
         }
     }
 
     /**
-     *
      * 删除单个文件
      *
      * @return 如果删除成功，则返回true，否则返回false
@@ -660,14 +666,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils{
             outStream2.write(outStream.toByteArray());
             // 关闭输出流
             outStream2.close();
-        }catch (Exception e){
-            logger.error("保存远程图片异常:",e);
-            throw  new BusinessException("图片上传失败,请稍后再试");
+        } catch (Exception e) {
+            logger.error("保存远程图片异常:", e);
+            throw new BusinessException("图片上传失败,请稍后再试");
         }
     }
 
 
-    public static List<String> readfile(String filepath){
+    public static List<String> readfile(String filepath) {
       /*  try {
             List<String> list=new ArrayList<>();
             File file = new File(filepath);

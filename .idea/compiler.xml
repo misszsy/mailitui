@@ -7,9 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="maili-busi" />
+        <module name="maili-web" />
         <module name="maili-framework" />
         <module name="maili-generate" />
-        <module name="maili-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

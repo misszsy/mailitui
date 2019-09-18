@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 /**
  * 会话Id生成
+ *
  * @author ThinkGem
  * @version 2013-01-15
  */
@@ -19,9 +20,9 @@ import java.io.Serializable;
 @Lazy(false)
 public class IdGen implements SessionIdGenerator {
 
-	@Override
-	public Serializable generateId(Session session) {
-		return IdUtils.randomUUID();
-	}
-	
+    @Override
+    public Serializable generateId(Session session) {
+        return IdUtils.randomUUID();
+    }
+
 }

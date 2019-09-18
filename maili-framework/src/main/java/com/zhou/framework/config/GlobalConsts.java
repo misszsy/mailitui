@@ -19,15 +19,15 @@ public class GlobalConsts {
     /**
      * 项目上传文件路径总路口
      */
-    public static final String PROJECT_FILE_ROOT_PATH ="/usr/maili";
+    public static final String PROJECT_FILE_ROOT_PATH = "/usr/maili";
 
     /**
      * 上传图片基础虚拟路径
      */
-    public static final String IMG_BASE_PATH ="/static/image/";
+    public static final String IMG_BASE_PATH = "/static/image/";
 
     /**
      * 上传百度编辑器基础虚拟路径
      */
-    public static final String IMG_BASE_EDITOR ="/static/editor/";
+    public static final String IMG_BASE_EDITOR = "/static/editor/";
 }

@@ -23,7 +23,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 @Controller
 @RequestMapping("/contact")
-public class ContactController extends BaseController<ContactService,Contact> {
+public class ContactController extends BaseController<ContactService, Contact> {
 
 
     public String getViewPath() {
@@ -31,10 +31,9 @@ public class ContactController extends BaseController<ContactService,Contact> {
     }
 
 
-   /**
-    *
-    * 页面跳转
-    */
+    /**
+     * 页面跳转
+     */
     @GetMapping("list")
     @RequiresPermissions("sys:contact:view")
     public String listView() {
@@ -42,64 +41,74 @@ public class ContactController extends BaseController<ContactService,Contact> {
     }
 
     /**
-    * 分页查询列表
-    * @param contact
-    * @param pageNum
-    * @param pageSize
-    * @return
-    */
+     * 分页查询列表
+     *
+     * @param contact
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = {"listData"})
-    public @ResponseBody R listData(Contact contact, Integer pageNum, Integer pageSize) {
-        QueryWrapper wrapper=new QueryWrapper<Contact>();
+    public @ResponseBody
+    R listData(Contact contact, Integer pageNum, Integer pageSize) {
+        QueryWrapper wrapper = new QueryWrapper<Contact>();
         return super.listData(wrapper, pageNum, pageSize);
     }
 
     /**
-    * 新增
-    * @param contact
-    * @return
-    */
+     * 新增
+     *
+     * @param contact
+     * @return
+     */
     @Log(value = "新增")
     @PostMapping("save")
     @RequiresPermissions("sys:contact:save")
-    public @ResponseBody R save(Contact contact) {
+    public @ResponseBody
+    R save(Contact contact) {
         beanValidator(contact);
         return super.save(contact);
     }
 
     /**
-    * 更新
-    * @return
-    */
+     * 更新
+     *
+     * @return
+     */
     @Log(value = "更新")
     @PostMapping("update")
     @RequiresPermissions("sys:contact:update")
-    public @ResponseBody R update(Contact contact) {
+    public @ResponseBody
+    R update(Contact contact) {
         beanValidator(contact);
         return super.update(contact);
     }
 
     /**
-    * 删除
-    * @param id
-    * @return
-    */
+     * 删除
+     *
+     * @param id
+     * @return
+     */
     @Log(value = "删除")
     @PostMapping("remove/{id}")
     @RequiresPermissions("sys:contact:remove")
-    public @ResponseBody R remove(@PathVariable String id) {
-     return super.remove(id);
+    public @ResponseBody
+    R remove(@PathVariable String id) {
+        return super.remove(id);
     }
 
 
     /**
-    * 根据id获取
-    * @param id
-    * @return
-    */
+     * 根据id获取
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:contact:update")
-    public @ResponseBody R get(@PathVariable  String id) {
+    public @ResponseBody
+    R get(@PathVariable String id) {
         return super.get(id);
     }
 }

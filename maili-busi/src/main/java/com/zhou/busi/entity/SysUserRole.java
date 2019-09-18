@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -33,6 +33,7 @@ public class SysUserRole extends Model<SysUserRole> {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public String getRoleId() {
         return roleId;
     }
@@ -44,8 +45,8 @@ public class SysUserRole extends Model<SysUserRole> {
     @Override
     public String toString() {
         return "SysUserRole{" +
-        "userId=" + userId +
-        ", roleId=" + roleId +
-        "}";
+                "userId=" + userId +
+                ", roleId=" + roleId +
+                "}";
     }
 }

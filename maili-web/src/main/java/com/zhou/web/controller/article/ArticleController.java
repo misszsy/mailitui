@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zhoushengyuan
@@ -42,10 +42,9 @@ public class ArticleController extends BaseController<ArticleService, Article> {
     }
 
 
-   /**
-    *
-    * 页面跳转
-    */
+    /**
+     * 页面跳转
+     */
     @GetMapping("list")
     @RequiresPermissions("sys:article:view")
     public String listView() {
@@ -54,7 +53,6 @@ public class ArticleController extends BaseController<ArticleService, Article> {
 
 
     /**
-     *
      * add页面跳转
      */
     @GetMapping("add")
@@ -63,37 +61,40 @@ public class ArticleController extends BaseController<ArticleService, Article> {
     }
 
     /**
-     *
      * edit页面跳转
      */
     @GetMapping("edit/{id}")
     public String editView(@PathVariable String id, Model model) {
-        model.addAttribute("id",id);
+        model.addAttribute("id", id);
         return getViewPath() + "edit";
     }
 
     /**
-    * 分页查询列表
-    * @param article
-    * @param pageNum
-    * @param pageSize
-    * @return
-    */
+     * 分页查询列表
+     *
+     * @param article
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = {"listData"})
-    public @ResponseBody R listData(Article article, Integer pageNum, Integer pageSize) {
-        IPage page=baseService.pageMaps(new Page<>(pageNum,pageSize),new QueryWrapper<>(article));
+    public @ResponseBody
+    R listData(Article article, Integer pageNum, Integer pageSize) {
+        IPage page = baseService.pageMaps(new Page<>(pageNum, pageSize), new QueryWrapper<>(article));
         return R.ok(page);
     }
 
     /**
-    * 新增
-    * @param article
-    * @return
-    */
+     * 新增
+     *
+     * @param article
+     * @return
+     */
     @Log(value = "新增")
     @PostMapping("save")
     @RequiresPermissions("sys:article:save")
-    public @ResponseBody R save(Article article) {
+    public @ResponseBody
+    R save(Article article) {
         beanValidator(article);
         article.setCreateBy(UserUtils.getUser().getId());
         article.setCreateDate(LocalDateTime.now());
@@ -104,66 +105,76 @@ public class ArticleController extends BaseController<ArticleService, Article> {
     }
 
     /**
-    * 更新
-    * @return
-    */
+     * 更新
+     *
+     * @return
+     */
     @Log(value = "更新")
     @PostMapping("update")
     @RequiresPermissions("sys:article:update")
-    public @ResponseBody R update(Article article) {
+    public @ResponseBody
+    R update(Article article) {
         beanValidator(article);
         return super.update(article);
     }
 
     /**
      * 删除
+     *
      * @param ids
      * @return
      */
     @Log(value = "删除")
     @PostMapping("remove")
     @RequiresPermissions("sys:article:remove")
-    public  @ResponseBody R remove(@RequestParam("ids[]")String[] ids) {
+    public @ResponseBody
+    R remove(@RequestParam("ids[]") String[] ids) {
         baseService.removeByIds(Arrays.asList(ids));
         return R.ok();
     }
 
     /**
-    * 根据id获取
-    * @param id
-    * @return
-    */
+     * 根据id获取
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("get/{id}")
     @RequiresPermissions("sys:article:update")
-    public @ResponseBody R get(@PathVariable  String id) {
+    public @ResponseBody
+    R get(@PathVariable String id) {
         return super.get(id);
     }
 
 
     /**
      * 推荐文章
+     *
      * @param ids
      * @return
      */
     @Log(value = "推荐文章")
     @PostMapping("advice")
     @RequiresPermissions("sys:article:advice")
-    public  @ResponseBody R advice(@RequestParam("ids[]") String[] ids) {
-        List<Article> articles=convertArticleList(ids,"advice",GlobalConsts.TURE);
+    public @ResponseBody
+    R advice(@RequestParam("ids[]") String[] ids) {
+        List<Article> articles = convertArticleList(ids, "advice", GlobalConsts.TURE);
         baseService.updateBatchById(articles);
         return R.ok();
     }
 
     /**
      * 取消推荐
+     *
      * @param ids
      * @return
      */
     @Log(value = "取消推荐")
     @PostMapping("cancel")
     @RequiresPermissions("sys:article:cancel")
-    public  @ResponseBody R cancel(@RequestParam("ids[]") String[] ids) {
-        List<Article> articles=convertArticleList(ids,"advice",GlobalConsts.FALSE);
+    public @ResponseBody
+    R cancel(@RequestParam("ids[]") String[] ids) {
+        List<Article> articles = convertArticleList(ids, "advice", GlobalConsts.FALSE);
         baseService.updateBatchById(articles);
         return R.ok();
     }
@@ -171,44 +182,48 @@ public class ArticleController extends BaseController<ArticleService, Article> {
 
     /**
      * 发布文章
+     *
      * @param ids
      * @return
      */
     @Log(value = "发布文章")
     @PostMapping("active")
     @RequiresPermissions("sys:article:active")
-    public  @ResponseBody R active(@RequestParam("ids[]") String[] ids) {
-      List<Article> articles=convertArticleList(ids,"active",GlobalConsts.TURE);
-      baseService.updateBatchById(articles);
-      return R.ok();
+    public @ResponseBody
+    R active(@RequestParam("ids[]") String[] ids) {
+        List<Article> articles = convertArticleList(ids, "active", GlobalConsts.TURE);
+        baseService.updateBatchById(articles);
+        return R.ok();
     }
 
 
     /**
      * 取消发布
+     *
      * @param ids
      * @return
      */
     @Log(value = "取消发布")
     @PostMapping("shutdown")
     @RequiresPermissions("sys:article:shutdown")
-    public  @ResponseBody R shutdown(@RequestParam("ids[]") String[] ids) {
-        List<Article> articles=convertArticleList(ids,"active",GlobalConsts.CANCEL);
+    public @ResponseBody
+    R shutdown(@RequestParam("ids[]") String[] ids) {
+        List<Article> articles = convertArticleList(ids, "active", GlobalConsts.CANCEL);
         baseService.updateBatchById(articles);
-        return  R.ok();
+        return R.ok();
     }
 
 
-    private List<Article> convertArticleList(String[] ids,String type,String status){
-        List<Article> articles=new ArrayList<>();
+    private List<Article> convertArticleList(String[] ids, String type, String status) {
+        List<Article> articles = new ArrayList<>();
         Arrays.stream(ids).forEach(id -> {
-            Article article=new Article();
+            Article article = new Article();
             article.setId(id);
-            if(StringUtils.equals(type,"active")){
+            if (StringUtils.equals(type, "active")) {
                 article.setStatus(status);
                 article.setPublishBy(UserUtils.getUser().getId());
                 article.setPublishDate(LocalDateTime.now());
-            }else{
+            } else {
                 article.setRecommend(status);
             }
             articles.add(article);

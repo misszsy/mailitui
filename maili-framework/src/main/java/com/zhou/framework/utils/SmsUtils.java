@@ -23,55 +23,56 @@ import java.util.Map;
  */
 public class SmsUtils {
 
-	private final static Logger logger = LoggerFactory.getLogger(SmsUtils.class);
+    private final static Logger logger = LoggerFactory.getLogger(SmsUtils.class);
 
-	//发送验证码的请求路径URL
-	private static final String SERVER_URL="https://api.netease.im/sms/sendcode.action";
-	//网易云信分配的账号，请替换你在管理后台应用下申请的Appkey
-	private static final String APP_KEY="a3ea6a20a8915d4d0469a72e9624e98f";
-	//网易云信分配的密钥，请替换你在管理后台应用下申请的appSecret
-	private static final String APP_SECRET="ce5ecfeed192";
-	//短信模板ID
-	private static final String TEMPLATEID="9334256";
-	//验证码长度，范围4～10，默认为4
-	private static final String CODELEN="6";
+    //发送验证码的请求路径URL
+    private static final String SERVER_URL = "https://api.netease.im/sms/sendcode.action";
+    //网易云信分配的账号，请替换你在管理后台应用下申请的Appkey
+    private static final String APP_KEY = "a3ea6a20a8915d4d0469a72e9624e98f";
+    //网易云信分配的密钥，请替换你在管理后台应用下申请的appSecret
+    private static final String APP_SECRET = "ce5ecfeed192";
+    //短信模板ID
+    private static final String TEMPLATEID = "9334256";
+    //验证码长度，范围4～10，默认为4
+    private static final String CODELEN = "6";
 
-	/**
-	 * 短信验证码
-	 * @param mobile
-	 * @param nonce
-	 * @return
-	 */
-	public static String sendSms(String mobile,String nonce) throws Exception{
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		HttpPost httpPost = new HttpPost(SERVER_URL);
+    /**
+     * 短信验证码
+     *
+     * @param mobile
+     * @param nonce
+     * @return
+     */
+    public static String sendSms(String mobile, String nonce) throws Exception {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(SERVER_URL);
 
-		String curTime = String.valueOf((new Date()).getTime() / 1000L);
-		String checkSum = CryptoUtils.getCheckSum(APP_SECRET, nonce, curTime);
+        String curTime = String.valueOf((new Date()).getTime() / 1000L);
+        String checkSum = CryptoUtils.getCheckSum(APP_SECRET, nonce, curTime);
 
-		httpPost.addHeader("AppKey", APP_KEY);
-		httpPost.addHeader("Nonce", nonce);
-		httpPost.addHeader("CurTime", curTime);
-		httpPost.addHeader("CheckSum", checkSum);
-		httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        httpPost.addHeader("AppKey", APP_KEY);
+        httpPost.addHeader("Nonce", nonce);
+        httpPost.addHeader("CurTime", curTime);
+        httpPost.addHeader("CheckSum", checkSum);
+        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 
-		nvps.add(new BasicNameValuePair("templateid", TEMPLATEID));
-		nvps.add(new BasicNameValuePair("mobile", mobile));
-		nvps.add(new BasicNameValuePair("codeLen", CODELEN));
+        nvps.add(new BasicNameValuePair("templateid", TEMPLATEID));
+        nvps.add(new BasicNameValuePair("mobile", mobile));
+        nvps.add(new BasicNameValuePair("codeLen", CODELEN));
 
-		httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
-		HttpResponse response = httpClient.execute(httpPost);
-		String json=EntityUtils.toString(response.getEntity(), "utf-8");
-		Map<String,Object> map= JSON.parseObject(json, Map.class);
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
+        HttpResponse response = httpClient.execute(httpPost);
+        String json = EntityUtils.toString(response.getEntity(), "utf-8");
+        Map<String, Object> map = JSON.parseObject(json, Map.class);
 
-		String validCode=MapUtils.getString(map,"code");
-		return validCode;
-	}
+        String validCode = MapUtils.getString(map, "code");
+        return validCode;
+    }
 
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
 	/*	HttpClient httpClient = HttpClientBuilder.create().build();
 
@@ -110,5 +111,5 @@ public class SmsUtils {
          *//*
 		System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));*/
 
-	}
+    }
 }

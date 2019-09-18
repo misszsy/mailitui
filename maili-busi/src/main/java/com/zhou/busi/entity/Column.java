@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoushengyuan
@@ -56,6 +56,7 @@ public class Column extends BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getParentId() {
         return parentId;
     }
@@ -63,6 +64,7 @@ public class Column extends BaseModel {
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
+
     public Integer getSort() {
         return sort;
     }
@@ -99,11 +101,11 @@ public class Column extends BaseModel {
     @Override
     public String toString() {
         return "Column{" +
-        "name=" + name +
-        ", enName=" + enName +
-        ", parentId=" + parentId +
-        ", parentName=" + parentName +
-        ", sort=" + sort +
-        "}";
+                "name=" + name +
+                ", enName=" + enName +
+                ", parentId=" + parentId +
+                ", parentName=" + parentName +
+                ", sort=" + sort +
+                "}";
     }
 }

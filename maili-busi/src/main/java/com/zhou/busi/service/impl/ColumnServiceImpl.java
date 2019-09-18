@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  栏目服务实现类
+ * 栏目服务实现类
  * </p>
  *
  * @author zhoushengyuan
@@ -31,11 +31,9 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
 
     @Override
     public List<Column> list(Wrapper<Column> queryWrapper) {
-        List<Column> columnList =super.list(queryWrapper);
+        List<Column> columnList = super.list(queryWrapper);
         return tree(columnList);
     }
-
-
 
 
     @Override
@@ -46,48 +44,47 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
 
     /**
      * 栏目分组管理
+     *
      * @return
      */
     @Override
     public List<Column> groupingByList(String columnId) {
         Map<String, List<Column>> columnMap = (Map<String, List<Column>>) JedisUtils.getObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP);
-        if(MapUtils.isEmpty(columnMap)){
-            List<Column> columnList= baseMapper.selectChildrenList();
+        if (MapUtils.isEmpty(columnMap)) {
+            List<Column> columnList = baseMapper.selectChildrenList();
 
-            columnMap=columnList.stream().collect(Collectors.groupingBy(Column::getParentId));
+            columnMap = columnList.stream().collect(Collectors.groupingBy(Column::getParentId));
 
-            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP,columnMap,0);
+            JedisUtils.setObject(GlobalConsts.CACHE_COLUMN_CHILDREN_MAP, columnMap, 0);
         }
         List<Column> columnList = columnMap.get(columnId);
-        if (org.apache.commons.collections.CollectionUtils.isEmpty(columnList)){
-            columnList =new ArrayList<>();
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(columnList)) {
+            columnList = new ArrayList<>();
         }
         return columnList;
     }
 
 
-
-
     /**
      * 构建树
      */
-    private static List<Column> tree(List<Column> list){
+    private static List<Column> tree(List<Column> list) {
         Map<String, Column> map = new LinkedHashMap<>();
-        for (Column column : list){
+        for (Column column : list) {
             map.put(column.getId(), column);
         }
 
-        for (Column column : list){
+        for (Column column : list) {
             String parentId = column.getParentId();
 
-            if(column.getParentId() == null || "0".equals(column.getParentId())){
+            if (column.getParentId() == null || "0".equals(column.getParentId())) {
                 continue;
             }
 
             Column parent = map.get(parentId);
             List<Column> childrenList = parent.getChildren();
 
-            if(CollectionUtils.isEmpty(childrenList)){
+            if (CollectionUtils.isEmpty(childrenList)) {
                 childrenList = new ArrayList<>();
                 parent.setChildren(childrenList);
             }
@@ -97,8 +94,8 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column> impleme
 
         List<Column> firstLevel = new ArrayList<>();
 
-        for (Column column : list){
-            if(column.getParentId() == null || "0".equals(column.getParentId())){
+        for (Column column : list) {
+            if (column.getParentId() == null || "0".equals(column.getParentId())) {
                 firstLevel.add(column);
             }
         }

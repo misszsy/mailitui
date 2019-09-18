@@ -31,83 +31,89 @@ public class WebExceptionHandler {
 
     /**
      * 上传文件大小异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(FileUploadBase.SizeLimitExceededException.class)
     @ResponseBody
-    public R handleFileUploadBaseSizeLimitExceededException(FileUploadBase.SizeLimitExceededException e){
-        logger.error("文件上传错误,时间:"+ DateUtils.formatDate(new Date(),1),e);
+    public R handleFileUploadBaseSizeLimitExceededException(FileUploadBase.SizeLimitExceededException e) {
+        logger.error("文件上传错误,时间:" + DateUtils.formatDate(new Date(), 1), e);
         return R.fail("文件大小不能超过2M");
     }
 
     /**
      * 上传文件大小异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     @ResponseBody
-    public R handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e){
-        logger.error("文件上传错误,时间:"+ DateUtils.formatDate(new Date(),1),e);
+    public R handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        logger.error("文件上传错误,时间:" + DateUtils.formatDate(new Date(), 1), e);
         return R.fail("文件大小不能超过2M");
     }
 
     /**
      * 业务处理异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public R handleBusinessException(BusinessException e){
-        logger.error("业务处理错误,时间:"+ DateUtils.formatDate(new Date(),1),e);
+    public R handleBusinessException(BusinessException e) {
+        logger.error("业务处理错误,时间:" + DateUtils.formatDate(new Date(), 1), e);
         return R.fail(e.getMessage());
     }
 
     /**
      * 验证参数异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
-    public R handleConstraintViolationException(ConstraintViolationException e){
-        List<String> list = BeanValidators.extractPropertyAndMessageAsList(e,": ");
+    public R handleConstraintViolationException(ConstraintViolationException e) {
+        List<String> list = BeanValidators.extractPropertyAndMessageAsList(e, ": ");
         return R.fail(addMessage(list.toArray(new String[]{})));
     }
 
     /**
      * 唯一索引异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(DuplicateKeyException.class)
     @ResponseBody
-    public R DuplicateKeyExceptionException(DuplicateKeyException e){
-        return  R.fail("手机号码已存在");
+    public R DuplicateKeyExceptionException(DuplicateKeyException e) {
+        return R.fail("手机号码已存在");
     }
 
     /**
      * 全局其它异常捕获
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public R handleException(Exception e){
-        logger.error("其他异常错误,时间:"+ DateUtils.formatDate(new Date(),1),e);
+    public R handleException(Exception e) {
+        logger.error("其他异常错误,时间:" + DateUtils.formatDate(new Date(), 1), e);
         return R.fail("系统异常，请稍后再试!");
     }
 
     /**
      * 权限异常
      */
-    @ExceptionHandler({ UnauthorizedException.class, AuthorizationException.class })
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public ModelAndView authorizationException(HttpServletRequest request, HttpServletResponse response) {
-        if(Servlets.isAjaxRequest(request)){
-            Servlets.renderObject(response, R.fail(RespEnum.NOT_AUTH.getCode(),"没有操作权限！",null));
-        }else{
+        if (Servlets.isAjaxRequest(request)) {
+            Servlets.renderObject(response, R.fail(RespEnum.NOT_AUTH.getCode(), "没有操作权限！", null));
+        } else {
             ModelAndView model = new ModelAndView();
             model.setViewName("error/403");
             return model;
@@ -115,10 +121,9 @@ public class WebExceptionHandler {
         return null;
     }
 
-        /**
-         * 添加验证参数错误消息
-         *
-         */
+    /**
+     * 添加验证参数错误消息
+     */
     protected String addMessage(String... messages) {
         StringBuilder sb = new StringBuilder();
         for (String message : messages) {

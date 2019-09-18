@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 
 /**
  * 日志切面类
+ *
  * @author zhoushengyuan
  * @since 2018-12-03
  */
@@ -31,7 +32,7 @@ import java.time.LocalDateTime;
 @Component
 public class LogAspect {
 
-    private static Logger logger= LoggerFactory.getLogger(LogAspect.class);
+    private static Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     @Autowired
     private SysLogService sysLogService;
@@ -48,32 +49,32 @@ public class LogAspect {
         long beginTime = System.currentTimeMillis();
         //执行方法
         Object result = null;
-        String type="1";
+        String type = "1";
         try {
             result = point.proceed();
         } catch (Throwable e) {
-            type="2";
-            logger.error("异常错误",e);
+            type = "2";
+            logger.error("异常错误", e);
         }
-        R r=(R) result;
+        R r = (R) result;
 
-        if(r.getCode()==200){
+        if (r.getCode() == 200) {
             //执行时长(毫秒)
             long time = System.currentTimeMillis() - beginTime;
             //保存日志
-            saveSysLog(point,time,type);
+            saveSysLog(point, time, type);
         }
         return result;
     }
 
 
-    private void saveSysLog(ProceedingJoinPoint joinPoint, long time,String type) {
+    private void saveSysLog(ProceedingJoinPoint joinPoint, long time, String type) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
 
         SysLog sysLog = new SysLog();
         Log log = method.getAnnotation(Log.class);
-        if(log != null){
+        if (log != null) {
             //注解上的描述
             sysLog.setOperation(log.value());
         }
@@ -93,11 +94,11 @@ public class LogAspect {
         String userId = UserUtils.getUser().getId();
         sysLog.setUserId(userId);
 
-        if(UserAgentUtils.isComputer(request)){
+        if (UserAgentUtils.isComputer(request)) {
             sysLog.setEquipMent("PC");
-        }else if(UserAgentUtils.isMobile(request)){
+        } else if (UserAgentUtils.isMobile(request)) {
             sysLog.setEquipMent("mobile");
-        }else{
+        } else {
             sysLog.setEquipMent("tablet");
         }
         sysLog.setOperationSystem(UserAgentUtils.getOperatingSystem(request).getName());

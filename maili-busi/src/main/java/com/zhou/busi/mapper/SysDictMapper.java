@@ -5,7 +5,7 @@ import com.zhou.busi.entity.SysDict;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zhoushengyuan

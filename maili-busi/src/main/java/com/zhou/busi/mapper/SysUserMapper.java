@@ -19,6 +19,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 根据用户id获取其用户的角色列表
+     *
      * @param id
      * @return
      */
