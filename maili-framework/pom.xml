@@ -19,7 +19,7 @@
         <jackson.version>2.7.0</jackson.version>
         <fastjson-version>1.2.47</fastjson-version>
         <!-- jdbc driver setting -->
-        <mysql.driver.version>8.0.12</mysql.driver.version>
+        <mysql.driver.version>8.0.28</mysql.driver.version>
         <!-- tools version setting -->
         <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.2.3</logback.version>
